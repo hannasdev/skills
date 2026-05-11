@@ -1,5 +1,11 @@
 # skills
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/hannasdev/skills)](https://github.com/hannasdev/skills/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/hannasdev/skills?style=social)](https://github.com/hannasdev/skills/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/hannasdev/skills)](https://github.com/hannasdev/skills/issues)
+[![GitHub repo size](https://img.shields.io/github/repo-size/hannasdev/skills)](https://github.com/hannasdev/skills)
+
 A curated set of reusable GitHub Copilot Chat skills for common repository workflows.
 
 ## Purpose
