@@ -20,5 +20,4 @@ Each folder contains a `SKILL.md` file with the detailed behavior and instructio
 
 ## Notes
 
-- `.gitignore` currently excludes macOS metadata files (`.DS_Store`).
 - This repo is intended to evolve as new repeatable workflows are identified.
