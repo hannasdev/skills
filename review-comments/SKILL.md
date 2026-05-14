@@ -49,14 +49,18 @@ After applying fixes:
 
 ## Non-negotiable rules
 
-- Do not resolve a thread before the fix is pushed.
-- Do not resolve a thread without a resolution reply comment unless explicitly requested by the user.
-- Do not use one generic reply across unrelated threads; use shared wording only when comments are functionally overlapping.
-- Do not resolve threads that are only partially addressed.
-- Do not batch unrelated refactors into review-response commits.
-- Do not blindly apply every reviewer request if it conflicts with product intent.
-- Do not skip validation when behavior changes.
-- If feedback is ambiguous, ask for clarification instead of guessing.
+- Thread resolution checklist:
+   - Do not resolve a thread before the fix is pushed.
+   - Do not resolve a thread without a resolution reply comment unless explicitly requested by the user.
+   - Do not resolve threads that are only partially addressed.
+- Reply quality checklist:
+   - Do not use one generic reply across unrelated threads; use shared wording only when comments address the same root cause or the same code section.
+- Scope and intent checklist:
+   - Do not batch unrelated refactors into review-response commits.
+   - Do not blindly apply every reviewer request if it conflicts with product intent.
+- Validation and clarity checklist:
+   - Do not skip validation when behavior changes.
+   - If feedback is ambiguous, ask for clarification instead of guessing.
 
 ## Assessment rubric
 
