@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pre-PR Adversary Review"
+  short_description: "Find contract drift and edge cases before PR prep."
+  default_prompt: "Run a pre-PR adversary review on the current branch before preparing the PR."

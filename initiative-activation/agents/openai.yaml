@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initiative Activation"
+  short_description: "Move an accepted initiative into active work."
+  default_prompt: "Activate the accepted initiative, create the implementation branch, and prepare the first milestone packet."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initiative Planning"
+  short_description: "Create initiative PRD, milestones, and architecture artifacts."
+  default_prompt: "Plan an initiative from the current discussion and create the durable initiative documents."

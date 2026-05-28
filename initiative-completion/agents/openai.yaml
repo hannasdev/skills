@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initiative Completion"
+  short_description: "Finalize milestone and initiative bookkeeping after merge."
+  default_prompt: "Update initiative bookkeeping after the PR merge and decide the next lifecycle step."

@@ -1,0 +1,62 @@
+# Implementation Packet Template
+
+```markdown
+# Implementation Packet: <Initiative> / <Milestone>
+
+## Branch Boundary
+
+- Branch: <branch>
+- Base: <base branch or remote tracking ref>
+- Merge base: <sha if known>
+- Initiative: <path>
+- Milestone: <milestone heading>
+
+## Objective
+
+<One-paragraph outcome for this milestone.>
+
+## Acceptance Criteria
+
+- [ ] <criterion copied or derived from milestone>
+- [ ] <criterion copied or derived from milestone>
+
+## Explicit Non-Goals
+
+- <out of scope for this milestone>
+
+## Relevant Context
+
+- Product / PRD constraints:
+- Architecture / ownership constraints:
+- Repository conventions:
+
+## Relevant Files Or Areas
+
+- <file/module/workflow if known>
+- <file/module/workflow if known>
+
+## Required Validation
+
+- `<command>`
+- Manual: <workflow or artifact to inspect>
+
+## Known Risks And Watchpoints
+
+- <risk>
+
+## Open Questions
+
+- [ ] <question, or None>
+
+## Expected Implementation Report
+
+The builder should return:
+
+- summary of changes
+- changed files
+- tests added or updated
+- commands run and results
+- assumptions made
+- known gaps
+- intentionally deferred work
+```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Milestone Implementation"
+  short_description: "Build one initiative milestone from a packet."
+  default_prompt: "Implement the selected milestone from the implementation packet and report what changed."

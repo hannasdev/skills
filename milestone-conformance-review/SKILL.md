@@ -1,0 +1,89 @@
+---
+name: milestone-conformance-review
+description: Review whether an implementation branch satisfies an initiative milestone. Use after milestone implementation and before PR prep, or after substantial feedback-driven changes, to compare the branch diff against main with docs/initiatives/active/<initiative>/prd.md, milestones.md, optional architecture.md, the selected milestone gate, acceptance criteria, non-goals, and test evidence.
+---
+
+# Milestone Conformance Review
+
+## Purpose
+
+Audit whether the branch built the milestone it promised to build.
+
+This is a neutral scope review, not a general code review. It asks:
+
+- Did the branch satisfy the target milestone acceptance criteria?
+- Did it respect non-goals and architectural constraints?
+- Did it update the durable artifacts that the milestone required?
+- Is there evidence from tests, docs, generated artifacts, or manual validation?
+
+Use `pre-pr-adversary-review` or `code-review` separately for bugs, maintainability, and hostile edge-case review.
+
+## Delegation Default
+
+When a multi-agent spawn tool is available, prefer a cold delegated conformance agent. Give it:
+
+- initiative PRD
+- milestones file
+- optional architecture notes
+- target milestone
+- branch diff against the intended base
+- test results, if available
+
+Do not give it the implementation conversation or builder justifications unless they are already present in durable artifacts.
+
+## Required Process
+
+1. Establish the branch boundary.
+   - Identify branch name.
+   - Identify base branch, usually `main` or `origin/main`.
+   - Record merge-base SHA and head SHA when available.
+   - Review the branch diff against the selected base, not only unstaged local changes.
+2. Load initiative artifacts.
+   - Read active initiative `prd.md`.
+   - Read `milestones.md`.
+   - Read `architecture.md` when present.
+   - Read repository guidance if it defines initiative or milestone conventions.
+3. Identify the target milestone.
+   - If multiple milestones appear touched, review the named target milestone first and flag possible scope creep.
+   - If no milestone is named and it cannot be inferred safely, stop and ask.
+4. Map criteria to evidence.
+   - For each acceptance criterion, cite diff evidence, tests, docs, generated artifacts, or manual validation.
+   - Mark missing or weak evidence clearly.
+5. Check non-goals and scope.
+   - Flag under-implementation.
+   - Flag scope creep, unrelated cleanup, or premature future-milestone work.
+6. Check required bookkeeping.
+   - Milestone status updates
+   - Initiative docs alignment
+   - Release-log or user/maintainer docs if the milestone requires them
+   - Architecture notes if the implementation changes durable contracts
+7. Produce a verdict.
+   - **Pass:** milestone criteria are satisfied with adequate evidence.
+   - **Partial:** useful progress, but criteria/evidence/bookkeeping remain incomplete.
+   - **Fail:** branch does not satisfy the milestone or materially violates scope/constraints.
+   - **Needs decision:** human/product/architecture ambiguity blocks a fair verdict.
+
+## Non-Goals
+
+- Do not approve general code quality.
+- Do not perform a full adversarial bug hunt.
+- Do not accept private implementation rationale as evidence.
+- Do not require work beyond the target milestone unless the branch already expanded into that scope.
+
+## Output Format
+
+Use `references/conformance-report-template.md`.
+
+Keep the verdict crisp. Findings should name the acceptance criterion, the evidence, and the missing piece.
+
+## Rerun Rule
+
+A conformance verdict is valid only for the reviewed base/head pair. If `main` moves materially, the branch changes materially, or feedback-driven fixes alter scope, rerun the relevant parts of this review.
+
+## Next Skill
+
+End by recommending the next skill:
+
+- Verdict `Pass`: recommend `pre-pr-adversary-review`.
+- Verdict `Partial` or `Fail`: recommend `milestone-implementation`, with `testing` for missing proof and `initiative-activation` only if the implementation packet itself needs revision.
+- Verdict `Needs decision`: ask for the decision, then rerun `milestone-conformance-review`.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initiative Adversary Review"
+  short_description: "Stress-test initiative docs before activation."
+  default_prompt: "Review the initiative documentation adversarially before implementation starts."

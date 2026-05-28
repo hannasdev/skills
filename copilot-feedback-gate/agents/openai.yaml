@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copilot Feedback Gate"
+  short_description: "Route PR feedback through the right review gate."
+  default_prompt: "Assess PR feedback and decide whether to rerun local review gates."

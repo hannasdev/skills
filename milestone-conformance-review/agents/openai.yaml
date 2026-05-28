@@ -1,0 +1,4 @@
+interface:
+  display_name: "Milestone Conformance Review"
+  short_description: "Compare a branch diff to an initiative milestone gate."
+  default_prompt: "Run a milestone conformance review against the active initiative and branch diff."

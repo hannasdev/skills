@@ -1,0 +1,96 @@
+---
+name: initiative-adversary-review
+description: Adversarially review initiative planning artifacts before implementation or activation. Use when reviewing docs/initiatives/backlog/<initiative>/prd.md, milestones.md, optional architecture.md, or similar repository planning docs against product principles, target architecture, repo guidance, scope clarity, milestone quality, risk coverage, and testability before moving work into active implementation.
+---
+
+# Initiative Adversary Review
+
+## Purpose
+
+Stress-test the initiative plan before code is written. This review asks whether the documented plan is coherent, valuable, scoped, testable, aligned with repository guidance, and ready to become active work.
+
+This is not an implementation review. Do not require a diff, and do not judge code quality unless implementation details in the initiative docs create architectural or delivery risk.
+
+## Delegation Default
+
+When a multi-agent spawn tool is available, prefer a cold delegated review agent. Give it only the initiative artifacts and relevant repository source-of-truth docs, not the whole planning conversation.
+
+If delegation is unavailable, perform the review locally and state that the review did not run in a cold context.
+
+## Required Process
+
+1. Establish scope.
+   - Identify the initiative folder and whether it is in `backlog/`, `active/`, or another repository convention.
+   - Read `prd.md`, `milestones.md`, and `architecture.md` when present.
+   - Read repository guidance such as `AGENTS.md`.
+   - Read product, design, architecture, contribution, or workflow docs named by repository guidance.
+   - Inspect a nearby completed or active initiative only to learn local structure and quality expectations.
+2. Review product fit.
+   - Is the problem real and outcome-focused?
+   - Is the value clear for users, maintainers, operators, or the system?
+   - Does it align with product principles and roadmap/source-of-truth docs?
+3. Review scope control.
+   - Are goals and non-goals explicit?
+   - Are tempting follow-ups excluded?
+   - Is there hidden scope expansion in milestones or architecture notes?
+4. Review architecture and ownership.
+   - Are boundaries, contracts, persistence, generated artifacts, APIs, permissions, migrations, or operational responsibilities clear where relevant?
+   - Are alternatives or tradeoffs recorded when they materially affect future work?
+5. Review milestone quality.
+   - Does each milestone produce a coherent, reviewable state?
+   - Are acceptance criteria externally observable and testable?
+   - Are required validations named at the right level?
+   - Are dependencies and sequencing clear?
+6. Review risk coverage.
+   - Look for edge cases, compatibility risks, migration risks, data-loss risks, unsafe assumptions, ambiguity, and review churn.
+   - Check whether risks have mitigation, validation, or a human decision path.
+7. Produce a verdict.
+   - **Accepted:** ready to activate or implement.
+   - **Accepted with notes:** safe to proceed; carry named risks forward.
+   - **Needs revision:** revise initiative docs before activation.
+   - **Blocked:** missing decision or contradiction prevents meaningful planning.
+
+## Review Priorities
+
+1. Product and architecture alignment
+2. Scope clarity and non-goals
+3. Milestone acceptance criteria
+4. Testability and validation strategy
+5. Risk and ambiguity visibility
+6. Wording and polish
+
+## Output Format
+
+Use this structure:
+
+```md
+## Initiative Adversary Review
+
+Scope: <initiative path and docs reviewed>
+Verdict: Accepted | Accepted with notes | Needs revision | Blocked
+
+## Blocking / Must Revise
+- <issue, impact, suggested doc change>
+
+## Should Improve
+- <gap likely to cause implementation or review churn>
+
+## Consider
+- <tradeoff, optional clarification, or future follow-up>
+
+## Checked / No Action
+- <important risk area reviewed and accepted>
+
+## Activation Notes
+- <risks or constraints the implementation packet should carry forward>
+```
+
+Omit empty sections. Keep findings tied to the durable artifact that should change.
+
+## Next Skill
+
+End by recommending the next skill:
+
+- Verdict `Accepted` or `Accepted with notes`: recommend `initiative-activation`.
+- Verdict `Needs revision`: recommend `initiative-planning` to update the docs, then rerun `initiative-adversary-review`.
+- Verdict `Blocked`: ask for the required human/product/architecture decision before rerunning this skill.
