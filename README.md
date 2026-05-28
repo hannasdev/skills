@@ -1,11 +1,13 @@
-# Codex Skills Workflow
+# Codex Skills
 
-This folder contains custom global Codex skills. The main workflow is
-agent-first: agents own lifecycle roles, and skills are the procedures those
-agents run.
+Custom global Codex skills for agent-first initiative work.
 
-You do not need to memorize every step. For initiative work, start by saying
-what phase you are in or what outcome you want:
+Use the lifecycle for initiative-sized changes. For small fixes, use only the
+skills proportional to risk.
+
+## Start Here
+
+Ask for the phase or outcome you want:
 
 - "Plan an initiative for this idea."
 - "Review this initiative before activation."
@@ -16,12 +18,12 @@ what phase you are in or what outcome you want:
 - "Handle PR feedback."
 - "Finish post-merge cleanup."
 
-You can also name an individual skill directly when you want precise control.
+Individual skills can still be named directly when you want exact control.
 
-## Target Initiative Workflow
+## Initiative Workflow
 
 ```text
-Concept discussion
+concept
   -> initiative-planning
   -> initiative-adversary-review
   -> initiative-activation
@@ -37,25 +39,25 @@ Concept discussion
 
 ## Agent Roles
 
-| Agent | Owns | Context | Skills |
-| --- | --- | --- | --- |
-| Orchestrator | Sequencing, state, decisions, handoffs | Full conversation | Chooses the next skill and integrates results |
-| Initiative Planner | Durable initiative docs | Full or focused context | `initiative-planning` |
-| Initiative Auditor | Plan critique before activation | Clean context | `initiative-adversary-review` |
-| Activator | Move accepted work into implementation | Main context | `initiative-activation` |
-| Builder | Implement one milestone from packet | Clean packet-only context | `milestone-implementation`, `testing`, `refactoring` |
-| Conformance Auditor | Compare branch to milestone promise | Clean context | `milestone-conformance-review` |
-| Adversarial Reviewer | Find bugs, edge cases, review churn | Clean context | `pre-pr-adversary-review`, `code-review` |
-| PR Publisher | PR body, release notes, commits | Main context | `pr-description`, `release-log`, `commit` |
-| Feedback Triage Agent | Decide whether PR feedback needs rerun gates | Clean or focused context | `copilot-feedback-gate` |
-| Review Responder | Apply fixes and resolve review threads | Main context | `review-comments`, `testing`, `commit` |
-| Completion Agent | Post-merge cleanup and initiative state | Main context | `post-merge-cleanup`, `initiative-completion` |
+| Agent | Context | Skills |
+| --- | --- | --- |
+| Orchestrator | Full conversation | Chooses next step, integrates results, owns decisions |
+| Initiative Planner | Full or focused | `initiative-planning` |
+| Initiative Auditor | Clean | `initiative-adversary-review` |
+| Activator | Main | `initiative-activation` |
+| Builder | Clean packet-only | `milestone-implementation`, `testing`, `refactoring` |
+| Conformance Auditor | Clean | `milestone-conformance-review` |
+| Adversarial Reviewer | Clean | `pre-pr-adversary-review`, `code-review` |
+| PR Publisher | Main | `pr-description`, `release-log`, `commit` |
+| Feedback Triage Agent | Clean or focused | `copilot-feedback-gate` |
+| Review Responder | Main | `review-comments`, `testing`, `commit` |
+| Completion Agent | Main | `post-merge-cleanup`, `initiative-completion` |
 
-## Clean-Context Rule
+## Clean Context
 
 Use clean spawned agents when private conversation history would bias the result.
 
-Good clean-context candidates:
+Best clean-context candidates:
 
 - `initiative-adversary-review`
 - `milestone-implementation`
@@ -64,7 +66,7 @@ Good clean-context candidates:
 - `code-review`
 - `copilot-feedback-gate`
 
-Usually keep these in the main context:
+Usually keep stateful/action workflows in the main context:
 
 - `initiative-planning`
 - `initiative-activation`
@@ -76,8 +78,8 @@ Usually keep these in the main context:
 
 ## Model Guidance
 
-Default to inheriting the parent model unless there is a clear reason to
-override. When spawning clean-context agents, a useful policy is:
+Inherit the parent model by default. Override only when the task clearly
+benefits from it.
 
 | Agent | Suggested model |
 | --- | --- |
@@ -89,27 +91,21 @@ override. When spawning clean-context agents, a useful policy is:
 
 ## Durable Artifacts
 
-The workflow should rely on artifacts, not chat memory:
+Treat durable artifacts as the source of truth:
 
-- initiative PRD
-- milestones
-- optional architecture notes
-- implementation packet
+- initiative PRD, milestones, and optional architecture notes
+- implementation packet and implementation report
 - branch diff against `main`
-- implementation report
-- conformance report
-- adversarial review findings
-- PR description
-- review comments
-- post-merge completion report
+- conformance report and adversarial review findings
+- PR description, release notes, review comments, and completion report
 
-If a justification matters, put it in a durable artifact: PRD, milestone,
+If a justification matters, put it in an artifact: PRD, milestone,
 architecture note, code comment, test, commit message, PR description, or review
 reply.
 
-## Skill Inventory
+## Skill Groups
 
-Planning and initiative lifecycle:
+Planning and lifecycle:
 
 - `initiative-planning`
 - `initiative-adversary-review`
@@ -136,12 +132,3 @@ Review and PR:
 Post-merge:
 
 - `post-merge-cleanup`
-
-## Practical Rule
-
-Prefer the full lifecycle for initiative-sized work. For small fixes, use only
-the skills proportional to risk, usually:
-
-```text
-testing -> pre-pr-adversary-review -> pr-description -> review-comments -> post-merge-cleanup
-```

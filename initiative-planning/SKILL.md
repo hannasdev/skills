@@ -58,17 +58,16 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
 
 Use `references/initiative-templates.md` for the default `prd.md`, `milestones.md`, and `architecture.md` structures when the repository does not provide a stronger local template.
 
-## Reuse From Deprecated PRD Planning
+## Planning Guidance
 
-Salvage the useful parts of older issue-oriented PRD workflows:
+When drafting initiative artifacts:
 
 - synthesize from existing conversation and repository context;
 - identify affected modules or ownership boundaries without overfitting to exact file paths;
 - record implementation decisions that are already settled;
 - record testing strategy and prior art;
-- keep explicit out-of-scope decisions.
-
-Do not create a GitHub issue as the default PRD artifact. For initiative-driven repositories, durable repository files are the source of truth.
+- keep explicit out-of-scope decisions;
+- use durable repository files as the source of truth.
 
 ## Quality Bar
 
