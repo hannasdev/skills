@@ -1,13 +1,13 @@
 ---
 name: pr-description
-description: Use when opening a pull request, updating a pull request description, or preparing a summary for review.
+description: Use when opening a pull request, updating a pull request description, or preparing a summary for review. By default, after preparing the description for committed PR-ready work, push the branch and open or update the PR unless the user explicitly asks for description-only output.
 ---
 
 # PR Description Skill
 
 ## Purpose
 
-Write pull request descriptions that help reviewers understand the change quickly and review it effectively.
+Write pull request descriptions that help reviewers understand the change quickly and review it effectively. When the user asks for PR prep or invokes this skill after committed PR-ready work, the default outcome is an opened or updated PR, not just a pasted draft, unless the user explicitly asks for description-only output.
 
 This skill is organized into focused sections: **required process → PR title → description template → rules → pre-merge checklist → examples**. Consult only the sections relevant to your current task.
 
@@ -36,6 +36,28 @@ Before writing the PR description:
 ### Phase 3: Finalize
 
 10. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `skills/release-log/SKILL.md`.
+11. Unless the user explicitly asked for description-only output, open or update the PR:
+   - If a PR already exists for the current branch, update its title/body.
+   - If no PR exists, push the current branch and open a draft PR by default.
+   - Prefer the `github:yeet` publish flow when full publish work is needed because it already covers GitHub auth checks, branch push, and draft PR creation. Reuse the PR title/body produced by this skill rather than relying on autofill.
+   - Use `gh pr create` / `gh pr edit` as a fallback when the GitHub app path is unavailable or cannot infer the repository/head branch cleanly.
+   - If `release-log.md` used a placeholder such as `PR: TBD`, replace it with the opened PR number or URL after the PR exists, commit that small follow-up if needed, push it, and update the PR body if the description mentions the release entry.
+
+## Default publish behavior
+
+Use this default decision table:
+
+- User says "PR description only", "draft a PR body", "do not push", "do not open", or equivalent: return the title/body only.
+- User asks to open, publish, prepare PR, create PR, update PR, or invokes this skill after a clean committed branch intended for review: push and open/update the PR.
+- User invokes this skill with uncommitted changes: prepare the description and ask before committing/pushing unless another active instruction explicitly requested commit/push.
+- User invokes this skill on an existing PR branch: update the existing PR title/body instead of creating a duplicate.
+
+Opening defaults:
+
+- Open a draft PR unless the user explicitly asks for ready-for-review.
+- Use the fetched remote default/base branch unless the user names another base.
+- Never push directly to `main`/`master`.
+- Do not create a duplicate PR when one already exists for the branch.
 
 ## Helper script
 
@@ -261,6 +283,8 @@ After opening or updating a PR, summarize:
 - Main change
 - Testing status
 - Any known risks
+
+If the user explicitly requested description-only output, say that no PR was opened and include the title/body.
 
 ## Next Skill
 
