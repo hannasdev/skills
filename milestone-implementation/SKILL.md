@@ -49,7 +49,8 @@ If the packet is missing critical information, inspect the active initiative doc
    - Use `refactoring` only for behavior-preserving structural work.
 5. Validate.
    - Run focused tests that prove the changed behavior.
-   - Run broader checks proportional to risk.
+   - If changes touch shared modules or public APIs, run the full test suite. Otherwise, run tests in affected packages only.
+   - If validation runs but fails, diagnose the failure. If it is caused by your changes, fix before reporting. If it is a pre-existing or environmental failure, document it in the implementation report and proceed.
    - If validation cannot be run, report why and what uncertainty remains.
 6. Review your own diff.
    - Check each acceptance criterion has implementation or evidence.

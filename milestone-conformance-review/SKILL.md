@@ -73,12 +73,13 @@ Do not give it the implementation conversation or builder justifications unless 
 ## Output Format
 
 Use `references/conformance-report-template.md`.
+If `references/conformance-report-template.md` is not found, use this minimal structure: Verdict, Criteria-Evidence Table, Scope Findings, Bookkeeping Findings, Next Skill Recommendation.
 
 Keep the verdict crisp. Findings should name the acceptance criterion, the evidence, and the missing piece.
 
 ## Rerun Rule
 
-A conformance verdict is valid only for the reviewed base/head pair. If `main` moves materially, the branch changes materially, or feedback-driven fixes alter scope, rerun the relevant parts of this review.
+A conformance verdict is valid only for the reviewed base/head pair. Rerun the relevant parts of this review if `main` gains commits that touch files also modified in the branch, if the branch adds or removes non-trivial changes after the last review, or if feedback-driven fixes alter scope.
 
 ## Next Skill
 

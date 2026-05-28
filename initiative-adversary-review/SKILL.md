@@ -22,9 +22,10 @@ If delegation is unavailable, perform the review locally and state that the revi
 1. Establish scope.
    - Identify the initiative folder and whether it is in `backlog/`, `active/`, or another repository convention.
    - Read `prd.md`, `milestones.md`, and `architecture.md` when present.
+   - If `prd.md` or `milestones.md` is absent, issue a `Blocked` verdict stating which required artifact is missing.
    - Read repository guidance such as `AGENTS.md`.
    - Read product, design, architecture, contribution, or workflow docs named by repository guidance.
-   - Inspect a nearby completed or active initiative only to learn local structure and quality expectations.
+   - Inspect one other initiative in the same parent directory (preferring a completed one) only to learn local structure and quality expectations.
 2. Review product fit.
    - Is the problem real and outcome-focused?
    - Is the value clear for users, maintainers, operators, or the system?

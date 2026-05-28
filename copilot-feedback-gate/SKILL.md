@@ -17,6 +17,7 @@ Use `review-comments` for collecting, implementing, replying to, and resolving P
    - Fetch unresolved PR review comments/threads when possible.
    - Include Copilot comments, human reviewer comments, check annotations, and CI failures if they are part of the feedback loop.
    - Group comments by topic and severity.
+   - If no unresolved comments or actionable feedback exist, output `Decision: Handle normally` with a note that no escalation triggers were found and no action is needed.
 2. Classify comments.
    - **Functionality:** behavior, acceptance criteria, API/output shape, data, workflow, migration, compatibility, failure path.
    - **Architecture:** ownership boundary, source-of-truth drift, layering, contracts, persistence, security/safety.
@@ -24,10 +25,11 @@ Use `review-comments` for collecting, implementing, replying to, and resolving P
    - **Docs/bookkeeping:** PRD/milestone status, release log, user/maintainer docs, generated docs.
    - **Style/nit/opinion:** local readability or preference without behavior impact.
 3. Apply escalation rules.
+   - Qualitative assessment overrides count-based thresholds. If all functionality comments are trivially local fixes that do not challenge milestone satisfaction, use ordinary handling regardless of count.
    - Rerun milestone conformance review when feedback suggests a missed acceptance criterion, under-implementation, scope creep, or stale milestone bookkeeping.
    - Rerun adversarial implementation review when feedback exposes a likely bug, edge case, unsafe assumption, architecture drift, or systemic test weakness.
-   - Rerun both when there are more than two functionality-related comments.
-   - Rerun both when one comment reveals a deeper category error, even if it is the only comment.
+   - Rerun both when there are three or more distinct functionality-classified comment threads (each thread counts as one regardless of replies within it).
+   - Rerun both when one comment reveals that the implementation addresses the wrong problem, violates a core architectural invariant, or misunderstands the acceptance criteria at a fundamental level.
    - Use ordinary `review-comments` handling when feedback is isolated, local, and does not challenge milestone satisfaction or branch risk.
 4. Produce a routing decision.
    - **Handle normally:** process comments with `review-comments`.
@@ -73,14 +75,3 @@ Decision: Handle normally | Patch then rerun conformance | Patch then rerun adve
 
 - <which threads can be handled directly>
 - <which threads should wait for rerun results>
-```
-
-## Next Skill
-
-End by recommending the next skill:
-
-- Decision `Handle normally`: recommend `review-comments`.
-- Decision `Patch then rerun conformance`: recommend `milestone-implementation`, then `milestone-conformance-review`.
-- Decision `Patch then rerun adversarial review`: recommend `milestone-implementation`, then `pre-pr-adversary-review`.
-- Decision `Return to milestone implementation`: recommend `milestone-implementation`, then rerunning both `milestone-conformance-review` and `pre-pr-adversary-review`.
-- Decision `Ask human decision`: ask for the decision before applying more PR feedback.

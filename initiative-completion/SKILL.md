@@ -18,7 +18,7 @@ Use `post-merge-cleanup` first for local git cleanup. Use this skill for initiat
    - Identify the merged branch, PR, initiative, and milestone.
    - Confirm local cleanup has run or note that it remains pending.
 2. Read local guidance.
-   - Read `AGENTS.md` or equivalent.
+   - Read `AGENTS.md`. If not present, check for `CONTRIBUTING.md` or `.github/copilot-instructions.md` as fallbacks.
    - Read product and initiative docs named by local guidance.
    - Inspect existing done/active initiative conventions.
 3. Update milestone bookkeeping.
@@ -35,6 +35,7 @@ Use `post-merge-cleanup` first for local git cleanup. Use this skill for initiat
    - Do not start the next milestone implementation in the same step.
 6. Report completion.
    - Use `references/completion-report-template.md`.
+   - If `references/completion-report-template.md` is not found, produce a freeform completion summary covering: initiative, milestone, PR link, merge date, and next recommended skill.
    - Include the next recommended skill.
 
 ## Guardrails

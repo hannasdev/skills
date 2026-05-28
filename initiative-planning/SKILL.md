@@ -22,7 +22,7 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
 ## Required Process
 
 1. Gather source-of-truth context.
-   - Read repository guidance such as `AGENTS.md`.
+   - Read `AGENTS.md` if it exists. Also check `CONTRIBUTING.md`, `docs/README.md`, or other top-level guidance files. If none exist, proceed without repository-specific guidance.
    - Read product or architecture source-of-truth docs named by repository guidance.
    - Inspect existing initiative folders to match naming, structure, milestone style, and bookkeeping.
    - Prefer existing repository templates when present.
@@ -31,6 +31,7 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
    - Stop for user input when scope, user value, architectural direction, or acceptance criteria would otherwise be invented.
 3. Create or update the initiative folder under backlog.
    - Use a short kebab-case slug.
+   - If an initiative folder with the same slug already exists, update the existing artifacts rather than creating duplicates. Summarize what changed compared to the previous version.
    - Keep the initiative in `backlog/` unless the user explicitly asks to activate it.
    - Do not move an initiative to `active/` as part of planning unless activation is requested.
 4. Write the PRD.
