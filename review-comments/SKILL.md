@@ -30,7 +30,7 @@ Before applying fixes:
    - optional suggestion
    - opinion/preference
    - ambiguous/conflicting feedback
-3. If feedback includes more than two functionality-related comments, a missed acceptance criterion, architecture concern, systemic test gap, or repeated back-and-forth risk, run `copilot-feedback-gate` before applying fixes.
+3. Run `copilot-feedback-gate` before applying fixes if any of the following are true: more than two functionality-related comments, a missed acceptance criterion, an architecture concern, a systemic test gap, or repeated back-and-forth risk.
 4. Confirm each comment against actual code/docs behavior.
 5. Decide response per comment:
    - implement now
@@ -85,6 +85,7 @@ Use the bundled helper to run the thread workflow consistently:
 
 - Script: `/Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs`
 - Behavior: strict (non-zero exit on invalid thread IDs, already-resolved IDs, and failing/pending PR checks)
+- If the helper script is not available or fails unexpectedly, fall back to the raw GitHub CLI commands in the Recommended command sequence section and report the script error to the user.
 - Commands:
    - `list` - show unresolved review threads (or all with `--all`)
    - `resolve` - comment + resolve specific thread IDs (thread-specific by default)

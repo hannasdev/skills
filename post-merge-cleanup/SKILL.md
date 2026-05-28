@@ -15,8 +15,8 @@ This skill is for actions after a PR is merged into `main`.
 
 1. Pre-checks: Confirm the PR is merged and ensure local `main` is checked out.
 2. Sync: Fast-forward local `main` from `origin/main`; if fast-forward fails because local `main` has diverged, stop and resolve the divergence manually before continuing.
-3. Branch cleanup: Delete the merged feature branch locally.
-4. Branch cleanup: Delete the remote feature branch only when it is no longer needed for collaboration.
+3. Branch cleanup: Delete the merged feature branch locally; if `git branch -d` fails due to unmerged changes, stop and report that the branch contains commits not in `main`.
+4. Branch cleanup: Delete the remote feature branch only when the user explicitly passes `--delete-remote` or confirms deletion when prompted.
 5. Verification and report: Verify no unresolved review threads remain on the merged PR, then report final state (branch, sync, thread count).
 
 ## Non-negotiable rules
