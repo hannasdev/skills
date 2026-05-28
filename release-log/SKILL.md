@@ -24,7 +24,7 @@ Skip for strictly internal refactors with no external impact.
 
 Before writing the release log entry:
 
-1. Run the PR prep helper from `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` when available.
+1. If you have the ability to execute scripts and the file `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` exists, run it. Otherwise, skip to step 2.
 2. Review the PR diff against the intended base branch.
 3. Review the best available PR context:
    - finished PR description, when one exists
@@ -34,7 +34,7 @@ Before writing the release log entry:
 4. Identify concrete user or maintainer value.
 5. Identify who is affected and whether any action is required.
 6. Add/update one entry in `release-log.md`.
-7. If the change alters product status, committed decisions, roadmap claims, milestone status, integration status, user workflow, or maintainer workflow, check whether the repository's product and decision source-of-truth docs also need alignment. Do not update these mechanically. Update only when their status or claims would otherwise drift from the release-log entry.
+7. If the release-log entry contradicts a specific claim in a source-of-truth doc (for example, a milestone marked complete that is now incomplete), flag it for manual review rather than silently updating.
 
 ## Entry format
 
@@ -57,6 +57,7 @@ Rules:
 - Keep bullets outcome-focused.
 - If no action is required, write `Action needed: None`.
 - Do not duplicate technical changelog wording.
+- If another uncommitted entry already covers the same change, merge the information into the existing entry rather than adding a duplicate.
 
 ## Quality bar
 

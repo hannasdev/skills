@@ -15,7 +15,9 @@ This skill is organized into focused sections: **required process â†’ PR title â
 
 Before writing the PR description:
 
-1. Run `pre-pr-adversary-review` first and address or explicitly carry forward its blocking/should-fix findings.
+### Phase 1: Setup
+
+1. Run the `pre-pr-adversary-review` skill first (see `skills/pre-pr-adversary-review/SKILL.md`) and address or explicitly carry forward its blocking/should-fix findings.
 2. Run the PR prep helper below when available.
 3. Fetch the latest remote base branch before reviewing the diff:
    - Determine the base branch from the user request, existing PR metadata, or the remote default branch.
@@ -23,10 +25,16 @@ Before writing the PR description:
    - Review the branch diff against `origin/<base-branch>`, not a potentially stale local branch.
 4. If creating a new work branch as part of PR prep, start it from the fetched base tip. Prefer the bundled branch helper below when available.
 5. Review relevant notes in `PRODUCT.md`.
+
+### Phase 2: Analyze
+
 6. Identify the user-facing or maintainer-facing purpose of the change.
 7. Identify test coverage and validation performed.
 8. Identify risks, tradeoffs, and follow-up work.
 9. Ensure the PR addresses a single, clearly defined feature, bug fix, or logical change.
+
+### Phase 3: Finalize
+
 10. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `skills/release-log/SKILL.md`.
 
 ## Helper script
@@ -45,6 +53,7 @@ node /Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs --json
 ```
 
 When using `--base origin/main` or another remote-tracking ref, fetch it first so the prep report reflects the current base commit.
+If the helper script is unavailable or fails, proceed manually by inspecting `git diff origin/<base-branch>...HEAD` and gathering the same context by hand.
 
 ## Branch helper
 
@@ -62,6 +71,8 @@ Examples:
 node /Users/hanna/.codex/skills/pr-description/scripts/branch-from-latest.mjs docs/update-guide
 node /Users/hanna/.codex/skills/pr-description/scripts/branch-from-latest.mjs feat/new-workflow --base main
 ```
+
+If the branch helper is unavailable or fails, fetch the base branch manually and create the new branch from the fetched base tip with standard git commands.
 
 ## PR title
 

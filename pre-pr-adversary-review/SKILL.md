@@ -25,6 +25,7 @@ If another PR-related skill is also relevant, run this skill first, then continu
    - Identify the base branch from the user request, current PR metadata, repository defaults, or local contribution guidance.
    - Fetch or otherwise confirm base freshness before judging the diff. Prefer reviewing against `origin/<base>` after `git fetch origin <base>` when `origin` is the target remote.
    - Inspect `git status --short`, changed file groups, and unstaged/staged diffs.
+   - If the branch has no commits ahead of the base branch, report that there is nothing to review and skip the adversarial checklist.
 2. Identify the intended contract.
    - Summarize what changed in user-facing, maintainer-facing, tool/API, data, migration, generated artifact, and test behavior.
    - Note any public schemas, tool descriptions, docs, release notes, generated files, or examples that should match the implementation.

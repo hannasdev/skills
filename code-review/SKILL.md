@@ -11,7 +11,8 @@ Review changes for correctness, maintainability, scope control, and alignment wi
 
 ## Delegation default
 
-When this skill is invoked from a normal user conversation and a multi-agent
+When this skill is invoked from a conversation that is not already running
+inside a spawned/delegated agent and a multi-agent
 spawn tool is available, do not perform the review in the current conversation
 context. Spawn a separate review agent instead.
 
@@ -40,6 +41,7 @@ Before giving review feedback:
 1. If the PR description is incomplete or missing, request the author to provide a detailed description before proceeding.
 2. Run the PR prep helper from `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` if available. If unavailable, proceed with the review manually and note its absence in the review summary.
 3. Review the diff against the intended base branch, preferably the latest fetched remote-tracking ref.
+   - If the diff exceeds context limits, prioritize reviewing changed files most likely to contain correctness or safety issues, and note which files were not reviewed.
 4. Review related repository source-of-truth docs, such as `PRODUCT.md`, `PRD.md`, or repository-local guidance named by `AGENTS.md`.
 5. Identify the purpose of the change.
 6. Check whether the implementation matches that purpose.
