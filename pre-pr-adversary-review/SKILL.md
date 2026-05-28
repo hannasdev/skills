@@ -93,6 +93,17 @@ If another PR-related skill is also relevant, run this skill first, then continu
 - The branch is scoped to one concern, with unrelated changes excluded or called out.
 - Validation commands are known and feasible before PR prep.
 
+### Initiative Lifecycle Drift
+
+For initiative-based work, especially after `milestone-conformance-review` returns or appears likely to return `Pass`:
+
+- If the branch completes the final milestone, PRD, milestones, product/source-of-truth docs, and release/completion notes must agree with that completed lifecycle state before PR prep.
+- If all milestones are complete, the active initiative should move to the repository's done/completed location in the implementation PR unless the user explicitly defers that bookkeeping.
+- If the branch completes a non-final milestone, the initiative should remain active and identify the next milestone; it should not churn between active/backlog/done locations.
+- If the docs still say the completed milestone is `in implementation`, `pending`, `TBD`, or active without an explicit deferral, classify it as **Should fix before PR**.
+- When available, run the read-only checker and include its result:
+  `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
+
 ## Output Format
 
 Return this structure:

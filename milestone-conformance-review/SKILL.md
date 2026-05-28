@@ -1,6 +1,6 @@
 ---
 name: milestone-conformance-review
-description: Review whether an implementation branch satisfies an initiative milestone. Use after milestone implementation and before PR prep, or after substantial feedback-driven changes, to compare the branch diff against main with docs/initiatives/active/<initiative>/prd.md, milestones.md, optional architecture.md, the selected milestone gate, acceptance criteria, non-goals, and test evidence.
+description: Review whether an implementation branch satisfies an initiative milestone. Use after milestone implementation and before PR prep, or after substantial feedback-driven changes, to compare the branch diff against main with active initiative docs, milestones.md, optional architecture.md, the selected milestone gate, acceptance criteria, non-goals, and test evidence.
 ---
 
 # Milestone Conformance Review
@@ -57,6 +57,14 @@ Do not give it the implementation conversation or builder justifications unless 
    - Initiative docs alignment
    - Release-log or user/maintainer docs if the milestone requires them
    - Architecture notes if the implementation changes durable contracts
+   - If the target milestone appears to be the final milestone, verify lifecycle bookkeeping before returning `Pass`:
+     - milestone status and evidence reflect acceptance/completion
+     - PRD and product/source-of-truth status no longer say the final milestone is merely in implementation
+     - the initiative is moved to the local done/completed location when all milestones are complete, or an explicit human deferral is recorded
+     - release-log or completion notes contain the PR link/date when local convention supports it
+   - When available, run the read-only lifecycle checker to make this deterministic:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
+   - Treat a strict lifecycle-check failure on a final milestone as `Partial` or `Needs decision`, not `Pass`, unless the user explicitly defers completion bookkeeping.
 7. Produce a verdict.
    - **Pass:** milestone criteria are satisfied with adequate evidence.
    - **Partial:** useful progress, but criteria/evidence/bookkeeping remain incomplete.

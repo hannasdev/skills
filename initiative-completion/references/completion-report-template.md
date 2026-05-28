@@ -8,9 +8,10 @@ Milestone: <heading>
 PR: <number or URL>
 Merge status: merged / user-confirmed / unknown
 
-## Bookkeeping Updated
+## Bookkeeping Verified
 
-- `<path>`: <what changed>
+- `<path>`: <merged bookkeeping found, missing, or not applicable>
+- Lifecycle checker: `<command>` -> <pass, warning, or blocking finding>
 
 ## Initiative State
 
@@ -20,7 +21,7 @@ Merge status: merged / user-confirmed / unknown
 
 ## Product / Backlog Updates
 
-- <path and summary, or None>
+- <path and summary from merged PR, missing bookkeeping note, or None>
 
 ## Remaining Work
 

@@ -31,9 +31,11 @@ Verdict: Pass | Partial | Fail | Needs decision
 
 - Initiative docs:
 - Milestone status:
+- Final milestone lifecycle gate: Pass / Partial / Needs decision / Not applicable
 - Architecture docs:
 - User/maintainer docs:
 - Release log:
+- Lifecycle checker: `<command>` -> <result or not run>
 
 ## Required Follow-Up
 
