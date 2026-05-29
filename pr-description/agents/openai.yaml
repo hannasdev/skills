@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Description"
+  short_description: "Prepare and publish clear PRs."
+  default_prompt: "Prepare the PR title and body, then open or update the PR when appropriate."
