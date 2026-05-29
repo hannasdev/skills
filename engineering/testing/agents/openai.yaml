@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing"
+  short_description: "Add or validate meaningful tests."
+  default_prompt: "Add, update, or run the smallest reliable tests for the requested behavior."
