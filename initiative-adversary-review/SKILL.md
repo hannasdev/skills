@@ -1,6 +1,6 @@
 ---
 name: initiative-adversary-review
-description: Adversarially review initiative planning artifacts before implementation or activation. Use when reviewing docs/initiatives/backlog/<initiative>/prd.md, milestones.md, optional architecture.md, or similar repository planning docs against product principles, target architecture, repo guidance, scope clarity, milestone quality, risk coverage, and testability before moving work into active implementation.
+description: Adversarially review initiative planning artifacts before implementation or activation. Use when reviewing initiative PRDs, milestones, optional architecture notes, or similar repository planning docs against product principles, target architecture, repo guidance, scope clarity, milestone quality, risk coverage, and testability before moving work into active implementation.
 ---
 
 # Initiative Adversary Review

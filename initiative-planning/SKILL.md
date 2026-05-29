@@ -1,6 +1,6 @@
 ---
 name: initiative-planning
-description: Create or update durable initiative planning artifacts from a concept discussion. Use when turning an idea, product change, architecture change, roadmap item, or implementation plan into repository initiative documents such as docs/initiatives/backlog/<initiative-name>/prd.md, milestones.md, and optional architecture.md; when reviewing or revising those planning artifacts before activation; or when replacing ad hoc PRD/issue planning with milestone-based initiative documentation.
+description: Create or update durable initiative planning artifacts from a concept discussion. Use when turning an idea, product change, architecture change, roadmap item, or implementation plan into repository initiative documents such as PRDs, milestones, and optional architecture notes; when reviewing or revising those planning artifacts before activation; or when replacing ad hoc PRD/issue planning with milestone-based initiative documentation.
 ---
 
 # Initiative Planning
