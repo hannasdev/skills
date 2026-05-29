@@ -12,7 +12,7 @@ function parseArgs(argv) {
     pr: null,
     branch: null,
     deleteRemote: false,
-    repo: "hannasdev/mcp-writing",
+    repo: null,
     help: false,
   };
 
@@ -66,6 +66,7 @@ function parseArgs(argv) {
   if (!args.pr || !args.branch) {
     throw new Error("Missing required flags: --pr <number> --branch <name>");
   }
+  args.repo = args.repo || detectCurrentRepo();
 
   return args;
 }
@@ -96,6 +97,14 @@ function runSoft(cmd, cmdArgs) {
   }
 }
 
+function detectCurrentRepo() {
+  const result = runSoft("gh", ["repo", "view", "--json", "nameWithOwner", "--jq", ".nameWithOwner"]);
+  if (result.ok && result.output) {
+    return result.output;
+  }
+  throw new Error("Could not detect current repository. Run from a GitHub checkout with gh auth, or pass --repo <owner/repo>.");
+}
+
 function printHelp() {
   console.log([
     "post-merge-cleanup.mjs",
@@ -105,7 +114,7 @@ function printHelp() {
     "",
     "Examples:",
     "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format",
-    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --repo hannasdev/mcp-writing",
+    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --repo owner/repo",
     "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --delete-remote",
   ].join("\n"));
 }

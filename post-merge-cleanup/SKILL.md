@@ -30,24 +30,24 @@ This skill is for actions after a PR is merged into `main`.
 
 Script path:
 
-`skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs`
+`/Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs`
 
 Usage:
 
 ```bash
-node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example
+node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example
 ```
 
 Optional repository selection (for non-default checkout context):
 
 ```bash
-node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --repo owner/repo
+node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --repo owner/repo
 ```
 
 Optional remote branch deletion:
 
 ```bash
-node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --delete-remote
+node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --delete-remote
 ```
 
 What it does:
