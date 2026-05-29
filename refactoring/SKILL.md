@@ -1,7 +1,8 @@
 ---
 name: refactoring
 description: Safely improve existing code structure without changing external behavior. Use when the user asks to refactor, simplify, clean up, untangle, rename, move, deduplicate, extract, inline, modularize, or prepare code for a later feature through behavior-preserving structural change.
-argument-hint: "[target files/modules and refactoring goal]"
+metadata:
+  argument-hint: "[target files/modules and refactoring goal]"
 ---
 
 # Refactoring Skill

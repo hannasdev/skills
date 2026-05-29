@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactoring"
+  short_description: "Improve code structure safely."
+  default_prompt: "Refactor the requested code while preserving external behavior and validating the change."
