@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Review diffs for correctness and risk."
+  default_prompt: "Review the requested diff or PR for correctness, scope, tests, and merge readiness."

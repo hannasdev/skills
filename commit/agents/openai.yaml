@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit"
+  short_description: "Create focused semantic commits."
+  default_prompt: "Prepare a focused commit from the inspected diff."
