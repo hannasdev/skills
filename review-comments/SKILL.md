@@ -111,35 +111,9 @@ Minimal `--comments-file` example:
 }
 ```
 
-## Recommended command sequence (GitHub CLI)
+## GitHub CLI fallback
 
-Prefer the helper script above. Use raw commands only as fallback.
-
-```bash
-# 1) Get unresolved threads (raw GraphQL, paginated)
-gh api graphql --paginate -f query='\
-query($owner:String!, $name:String!, $pr:Int!, $endCursor:String) {\
-   repository(owner:$owner, name:$name) {\
-      pullRequest(number:$pr) {\
-         reviewThreads(first:100, after:$endCursor) {\
-            nodes {\
-               id\
-               isResolved\
-               comments(first:20) { nodes { author { login } path line body url } }\
-            }\
-            pageInfo { hasNextPage endCursor }\
-         }\
-      }\
-   }\
-}' -f owner='hannasdev' -f name='mcp-writing' -F pr=<number>
-
-# 2) Reply and resolve addressed thread IDs
-gh api graphql -f query='mutation($threadId:ID!, $body:String!){addPullRequestReviewThreadReply(input:{pullRequestReviewThreadId:$threadId, body:$body}){comment{id}}}' -f threadId='<thread_id>' -f body='Addressed in <commit>. Validation: <test command>'
-gh api graphql -f query='mutation($id:ID!){resolveReviewThread(input:{threadId:$id}){thread{id isResolved}}}' -f id='<thread_id>'
-
-# 3) Verify unresolved count and check status
-gh pr checks <number> -R hannasdev/mcp-writing
-```
+Prefer the helper script above. If raw GitHub CLI commands are needed, read `references/github-cli-fallback.md`.
 
 ## Output format for user updates
 

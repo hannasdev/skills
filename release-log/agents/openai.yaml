@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Log"
+  short_description: "Write user-focused release entries."
+  default_prompt: "Update the release log for this user- or maintainer-facing change."

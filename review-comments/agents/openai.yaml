@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Comments"
+  short_description: "Address PR review feedback safely."
+  default_prompt: "Fetch unresolved PR review comments, triage them, apply focused fixes, validate, and resolve addressed threads."
