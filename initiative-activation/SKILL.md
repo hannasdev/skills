@@ -1,6 +1,6 @@
 ---
 name: initiative-activation
-description: Activate an accepted initiative for implementation. Use when moving docs/initiatives/backlog/<initiative> to docs/initiatives/active/<initiative> or an equivalent repository convention, creating a fresh implementation branch from main, selecting the first or next milestone, updating initiative bookkeeping, and producing an implementation packet for a builder agent.
+description: Activate an accepted initiative for implementation. Use when moving an initiative from backlog to active state or an equivalent repository convention, creating a fresh implementation branch from main, selecting the first or next milestone, updating initiative bookkeeping, and producing an implementation packet for a builder agent.
 ---
 
 # Initiative Activation
