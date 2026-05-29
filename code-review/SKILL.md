@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Use when reviewing code changes, PR diffs, reviewer comments, or deciding whether a change is ready to merge.
+description: Use when reviewing code changes, PR diffs, or deciding whether an implementation is ready to merge. For collecting, fixing, replying to, or resolving PR review threads, use review-comments instead.
 ---
 
 # Code Review Skill
@@ -38,12 +38,12 @@ perform the review locally and do not spawn another agent.
 
 Before giving review feedback:
 
-1. If the PR description is incomplete or missing, request the author to provide a detailed description before proceeding.
+1. Identify the intended purpose from the PR description, user request, branch name, commit messages, or diff. Ask for clarification only when correctness or scope cannot be judged from available context.
 2. Run the PR prep helper from `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` if available. If unavailable, proceed with the review manually and note its absence in the review summary.
 3. Review the diff against the intended base branch, preferably the latest fetched remote-tracking ref.
    - If the diff exceeds context limits, prioritize reviewing changed files most likely to contain correctness or safety issues, and note which files were not reviewed.
 4. Review related repository source-of-truth docs, such as `PRODUCT.md`, `PRD.md`, or repository-local guidance named by `AGENTS.md`.
-5. Identify the purpose of the change.
+5. Confirm the purpose of the change.
 6. Check whether the implementation matches that purpose.
 7. Check whether the change introduces unnecessary scope.
 8. Run an adversarial pass against changed code and tests.
@@ -77,8 +77,6 @@ Use these labels when useful:
 - Do not request unrelated refactors.
 - Do not nitpick style unless it significantly impacts readability or violates established project-wide consistency rules.
 - Do not assume tests passed unless evidence is present.
-- Do not treat all reviewer comments as equally important.
-- If feedback lacks specific examples, clear reasoning, or actionable steps, ask for clarification instead of guessing.
 - Prefer small, focused follow-up PRs over expanding the current PR.
 
 ## What to check
@@ -177,9 +175,11 @@ Brief overall assessment.
 
 Omit empty sections.
 
-## When reviewing reviewer comments
+## When asked about review feedback
 
-Group comments into:
+Use this skill only for a read-only assessment of feedback quality or implementation risk. For collecting, fixing, replying to, or resolving PR threads, hand off to `review-comments`.
+
+For read-only assessment, group feedback into:
 
 - Correctness issues
 - Required changes
@@ -187,7 +187,7 @@ Group comments into:
 - Opinions / preferences
 - Conflicting or unclear feedback
 
-Then recommend what to implement, what to push back on, and what to clarify.
+Then recommend what to implement, what to push back on, what to clarify, and whether `copilot-feedback-gate` should run before ordinary `review-comments` handling.
 
 ## Final review stance
 
