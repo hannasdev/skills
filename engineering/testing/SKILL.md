@@ -133,13 +133,14 @@ The focused test was run.
 The relevant broader test set was run, or the limitation was reported.
 Any failures are explained honestly.
 The final response includes exact commands and outcomes.
-Reference Files
+
+## Reference Files
 
 Use these files for deeper guidance when relevant:
 
-skills/references/testing-examples.md — common workflows for bug fixes, refactors, CI failures, and snapshot updates.
-skills/references/mocking-and-fixtures.md — guidance for mocks, fixtures, deterministic tests, and test data.
-skills/references/snapshots-and-generated-output.md — guidance for snapshots, generated files, schemas, and contract validation.
+- `/Users/hanna/.codex/skills/references/testing-examples.md` - common workflows for bug fixes, refactors, CI failures, and snapshot updates.
+- `/Users/hanna/.codex/skills/references/mocking-and-fixtures.md` - guidance for mocks, fixtures, deterministic tests, and test data.
+- `/Users/hanna/.codex/skills/references/snapshots-and-generated-output.md` - guidance for snapshots, generated files, schemas, and contract validation.
 
 ## Next Skill
 
