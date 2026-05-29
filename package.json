@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "lint:skills": "node scripts/lint-skills.mjs",
+    "test": "npm run lint:skills"
+  }
+}
