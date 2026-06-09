@@ -93,6 +93,6 @@ A conformance verdict is valid only for the reviewed base/head pair. Rerun the r
 
 End by recommending the next skill:
 
-- Verdict `Pass`: recommend `pre-pr-adversary-review`.
+- Verdict `Pass`: recommend `pr-readiness-gate`.
 - Verdict `Partial` or `Fail`: recommend `milestone-implementation`, with `testing` for missing proof and `initiative-activation` only if the implementation packet itself needs revision.
 - Verdict `Needs decision`: ask for the decision, then rerun `milestone-conformance-review`.
