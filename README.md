@@ -29,8 +29,8 @@ concept
   -> initiative-activation
   -> milestone-implementation
   -> milestone-conformance-review
-  -> pre-pr-adversary-review
-  -> pr-description / release-log
+  -> pr-readiness-gate
+  -> pre-pr-adversary-review / release-log / pr-description
   -> copilot-feedback-gate / review-comments
   -> post-merge-cleanup
   -> initiative-completion
