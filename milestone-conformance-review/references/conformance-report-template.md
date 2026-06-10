@@ -23,6 +23,7 @@ Verdict: Pass | Partial | Fail | Needs decision
 
 ## Scope Control
 
+- Scope budget:
 - Under-implementation:
 - Scope creep:
 - Non-goals respected:

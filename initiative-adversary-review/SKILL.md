@@ -42,6 +42,8 @@ If delegation is unavailable, perform the review locally and state that the revi
    - Are acceptance criteria externally observable and testable?
    - Are required validations named at the right level?
    - Are dependencies and sequencing clear?
+   - Does each milestone include a plausible scope budget covering primary behavior change, subsystem boundaries, acceptance criteria count, estimated non-generated diff size, validation shape, and split rationale?
+   - Treat more than 5 acceptance criteria, more than 2 major subsystem boundaries, estimated non-generated diff over 800 changed lines, or diffuse validation as review-churn tripwires. Recommend splitting or documenting why the larger gate is still more reviewable.
 6. Review risk coverage.
    - Look for edge cases, compatibility risks, migration risks, data-loss risks, unsafe assumptions, ambiguity, and review churn.
    - Check whether risks have mitigation, validation, or a human decision path.
@@ -58,7 +60,8 @@ If delegation is unavailable, perform the review locally and state that the revi
 3. Milestone acceptance criteria
 4. Testability and validation strategy
 5. Risk and ambiguity visibility
-6. Wording and polish
+6. Scope budget and likely review burden
+7. Wording and polish
 
 ## Output Format
 

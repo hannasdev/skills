@@ -30,6 +30,7 @@ If any precondition is not met, stop and report the blocker or ask for the missi
    - Locate the initiative in `docs/initiatives/backlog/<initiative>/` or the local equivalent.
    - Read `prd.md`, `milestones.md`, and optional `architecture.md`.
    - Confirm the target milestone and any carried-forward review notes.
+   - Confirm the target milestone has a scope budget or equivalent scope notes. If scope tripwires are exceeded without rationale, stop and recommend returning to `initiative-planning` before activation.
 3. Move the initiative to active.
    - Prefer `git mv` when the repository is under git and the folder is tracked.
    - Use the repository's active initiative convention, usually `docs/initiatives/active/<initiative>/`.
@@ -41,7 +42,7 @@ If any precondition is not met, stop and report the blocker or ask for the missi
    - Never push directly to `main`.
 5. Produce an implementation packet.
    - Include only what a builder needs for the selected milestone.
-   - Include acceptance criteria, non-goals, relevant constraints, required validation, known risks, and explicit deferrals.
+   - Include acceptance criteria, non-goals, relevant constraints, scope budget, required validation, known risks, and explicit deferrals.
    - Do not include the full planning conversation.
 6. Report activation.
    - Active initiative path

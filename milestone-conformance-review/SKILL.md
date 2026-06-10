@@ -52,6 +52,7 @@ Do not give it the implementation conversation or builder justifications unless 
 5. Check non-goals and scope.
    - Flag under-implementation.
    - Flag scope creep, unrelated cleanup, or premature future-milestone work.
+   - Compare the branch against the milestone scope budget when present. Call out exceeded tripwires, especially more acceptance criteria, more subsystem boundaries, larger non-generated diff, or broader validation needs than planned.
 6. Check required bookkeeping.
    - Milestone status updates
    - Initiative docs alignment
@@ -81,7 +82,7 @@ Do not give it the implementation conversation or builder justifications unless 
 ## Output Format
 
 Use `references/conformance-report-template.md`.
-If `references/conformance-report-template.md` is not found, use this minimal structure: Verdict, Criteria-Evidence Table, Scope Findings, Bookkeeping Findings, Next Skill Recommendation.
+If `references/conformance-report-template.md` is not found, use this minimal structure: Verdict, Criteria-Evidence Table, Scope Budget Check, Scope Findings, Bookkeeping Findings, Next Skill Recommendation.
 
 Keep the verdict crisp. Findings should name the acceptance criterion, the evidence, and the missing piece.
 

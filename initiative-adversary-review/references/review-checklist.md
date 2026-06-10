@@ -19,9 +19,12 @@ Use this only when a deeper pass is needed.
 ## Milestones
 
 - Each milestone is independently reviewable.
+- Each milestone has one primary behavior change.
+- Each milestone stays within review-oriented tripwires or explains why not: 3-5 acceptance criteria, no more than 2 major subsystem boundaries, estimated non-generated diff under 800 changed lines, and one focused validation story.
 - Acceptance criteria can be verified from branch diff, tests, docs, generated artifacts, or manual workflow evidence.
 - Required validation is concrete.
 - A milestone does not require hidden follow-up work to leave the repository coherent.
+- The split rationale would help a reviewer understand why the milestone is not smaller.
 
 ## Risk
 

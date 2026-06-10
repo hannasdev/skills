@@ -37,8 +37,9 @@ If the packet is missing critical information, inspect the active initiative doc
    - Read the implementation packet.
    - Confirm current branch and intended base.
 2. Confirm the milestone boundary.
-   - Restate the objective, acceptance criteria, non-goals, and required validation.
+   - Restate the objective, acceptance criteria, scope budget, non-goals, and required validation.
    - Flag ambiguity before editing if it would affect behavior or scope.
+   - If the planned implementation appears likely to exceed the scope budget, pause and recommend revising or splitting the milestone instead of silently expanding it.
 3. Inspect existing code and tests.
    - Locate relevant modules, contracts, docs, generated artifacts, and nearest tests.
    - Prefer established project patterns over new abstractions.
@@ -55,6 +56,7 @@ If the packet is missing critical information, inspect the active initiative doc
 6. Review your own diff.
    - Check each acceptance criterion has implementation or evidence.
    - Check non-goals were respected.
+   - Compare the actual change against the scope budget and call out exceeded tripwires.
    - Check docs/release-log/bookkeeping expectations from the packet.
 7. Return an implementation report.
    - Use `references/implementation-report-template.md`.
@@ -66,6 +68,7 @@ If the packet is missing critical information, inspect the active initiative doc
 - Do not use the prior planning conversation as hidden scope.
 - Do not weaken acceptance criteria.
 - Do not silently expand into later milestones.
+- Do not treat the scope budget as permission to add work; it is a ceiling and review-risk signal.
 - Do not mark milestone status complete unless the packet explicitly asks for implementation-side bookkeeping.
 - Do not open a PR from this skill; hand off to review first.
 - Do not claim tests passed unless commands were run.

@@ -78,6 +78,15 @@ Describe the smallest coherent outcome this milestone delivers.
 - <Included work>
 - <Included work>
 
+### Scope Budget
+
+- Primary behavior change: <one user/maintainer/system-visible outcome>
+- Major subsystem boundaries touched: <1-2 preferred; list names>
+- Acceptance criteria count: <3-5 preferred; explain if more>
+- Estimated non-generated diff size: <under 800 changed lines preferred; explain if larger>
+- Validation shape: <one focused automated area, manual workflow, or generated artifact check>
+- Split rationale: <why this is the smallest reviewable unit, or how to split if it grows>
+
 ### Non-Goals
 
 - <Excluded work>

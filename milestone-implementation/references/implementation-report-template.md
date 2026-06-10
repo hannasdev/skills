@@ -22,6 +22,15 @@ Base: <base>
 | --- | --- | --- |
 | <criterion> | <code/docs/artifact evidence> | <test/manual evidence> |
 
+## Scope Budget Check
+
+- Primary behavior change preserved: yes / no
+- Major subsystem boundaries touched: <actual list>
+- Acceptance criteria count: <count>
+- Non-generated diff size: <actual or approximate changed lines, excluding generated/vendor/lockfile churn>
+- Validation shape: <focused / broader than planned / incomplete>
+- Exceeded tripwires: <none, or list with rationale>
+
 ## Tests And Validation
 
 - `<command>`: passed / failed / not run

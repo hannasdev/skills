@@ -42,6 +42,8 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
    - Break work into independently reviewable gates.
    - Each milestone must have a concrete outcome, acceptance criteria, required validation, and explicit non-goals.
    - Prefer vertical slices that leave the repository in a coherent state after each milestone.
+   - Add a scope budget for each milestone. Treat the budget as a planning tripwire, not a hard rule: prefer 3-5 acceptance criteria, no more than 2 major subsystem boundaries, an estimated non-generated diff under 800 changed lines, and one focused validation story.
+   - If a milestone exceeds any tripwire, either split it or record why the larger milestone is still the most reviewable shape.
 6. Add architecture notes when needed.
    - Capture decisions, constraints, ownership boundaries, data/API contracts, migration strategy, failure modes, and alternatives considered.
    - Keep architecture notes tied to the initiative; promote to global architecture docs only when the repository's durable design contract changes.
@@ -49,6 +51,7 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
    - Check alignment with product/design principles and target architecture.
    - Check that acceptance criteria are testable.
    - Check that non-goals prevent obvious scope creep.
+   - Check that every milestone's scope budget is plausible and that any exceeded tripwire has a clear split rationale.
    - Check that risks have validation or decision paths.
 8. Report the result.
    - List created/updated files.
@@ -78,12 +81,14 @@ Good initiative planning:
 - lets a cold conformance reviewer compare branch diff to milestone promise;
 - names risks before implementation starts;
 - keeps milestones small enough to review and merge;
+- makes likely review burden visible before activation;
 - separates product promise from implementation notes;
 - leaves unresolved decisions visible instead of burying them in chat.
 
 Avoid:
 
 - vague milestones such as "implement backend";
+- milestones that exceed scope tripwires without split rationale;
 - acceptance criteria that cannot be tested or reviewed;
 - architecture decisions hidden only in prose summaries;
 - scope expansion disguised as "cleanup";

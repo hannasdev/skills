@@ -20,6 +20,15 @@
 - [ ] <criterion copied or derived from milestone>
 - [ ] <criterion copied or derived from milestone>
 
+## Scope Budget
+
+- Primary behavior change: <one outcome>
+- Major subsystem boundaries touched: <list>
+- Acceptance criteria count: <count>
+- Estimated non-generated diff size: <estimate>
+- Validation shape: <focused validation story>
+- Split rationale: <why this is the smallest reviewable unit>
+
 ## Explicit Non-Goals
 
 - <out of scope for this milestone>
