@@ -1,6 +1,6 @@
 ---
 name: pr-readiness-gate
-description: Use immediately before opening, updating, or marking a pull request ready. Orchestrates the final pre-PR checks so initiative scope, adversarial review, release-log hygiene, and validation evidence are in place before reviewers see the branch.
+description: Use immediately before opening, updating, or marking a pull request ready. Orchestrates the final pre-PR checks so initiative scope, adversarial review, release-log hygiene, and validation evidence are in place before reviewers see the branch. If git status or branch diff is unavailable, issue verdict `Needs human decision` with finding "Cannot inspect branch state -- provide git diff output or describe the changes made before proceeding."
 ---
 
 # PR Readiness Gate
@@ -34,21 +34,24 @@ Use it after implementation and before `pr-description`.
 
 1. Establish the publication context.
    - Identify the base branch.
+   - If the base branch cannot be determined from git context or user input, issue verdict `Needs human decision` with finding: "Base branch is ambiguous -- specify the intended merge target before proceeding."
    - Identify whether the branch is initiative-based.
    - Identify whether user-facing or maintainer-facing behavior changed.
    - Identify whether a PR already exists for the branch.
 2. Inspect current branch state.
    - Review `git status --short`.
    - Review the branch diff against the intended base.
-   - Confirm the branch still appears scoped to one concern.
+   - If git status or branch diff is unavailable, issue verdict `Needs human decision` with finding: "Cannot inspect branch state -- provide git diff output or describe the changes made before proceeding."
+   - Confirm the branch addresses a single user-visible or system-visible outcome. If two independent problems are fixed or two independent features are added, the branch is out of scope.
 3. Decide which prerequisite gates are required.
-   - If the work is initiative-based and milestone scope, acceptance criteria, or initiative bookkeeping matter, run `milestone-conformance-review` first unless a current clean result already exists for the same base/head pair.
+   - Evaluate conditions in order. If any higher-priority condition is true, apply its gate and do not apply lower-priority exemptions to that gate. (1) Initiative-based -> milestone-conformance-review required. (2) Any behavior, contract, migration, CI, operational, or non-trivial code change -> adversarial review required. (3) Only if neither (1) nor (2) applies may the docs-only/mechanical exemption be considered.
+   - If the work is initiative-based and milestone scope, acceptance criteria, or initiative bookkeeping matter, run `milestone-conformance-review` first unless a current clean result already exists for the same base/head pair. A result is current if it was produced after the most recent commit on the branch and no files have changed since it was run. If new commits exist since the last result, the gate must be re-run.
    - For behavior changes, contract changes, migrations, boundary-sensitive work, CI changes, operational changes, or non-trivial code changes, run `pre-pr-adversary-review` unless a current clean result already exists for the same base/head pair.
-   - For docs-only or clearly mechanical work, you may skip the adversarial review only if you explicitly say why the reduced gate is safe.
+   - For docs-only changes (no code execution path altered) or purely mechanical changes defined as automated find-and-replace with no logic added or removed, you may skip adversarial review. For any other change type, adversarial review is required.
 4. Check release-log readiness.
    - If user-facing or maintainer-facing behavior changed, ensure `release-log.md` is updated or route to `release-log`.
-   - A placeholder such as `PR: TBD` is acceptable only before the first PR is opened for the branch.
-   - If a PR already exists and the release entry still has `TBD` or equivalent, the branch is not PR-ready.
+   - A placeholder such as `PR: TBD` is acceptable only before the first PR is opened for the branch, and only when the release entry is otherwise complete.
+   - If a PR already exists and the release entry still has `TBD` or equivalent, or if required release-log content is incomplete, the branch is not PR-ready.
 5. Check validation evidence.
    - Confirm there are concrete commands and outcomes that can be cited in the PR.
    - For behavior changes, expect focused evidence for at least one meaningful edge case or failure path, not only the main happy path.
@@ -74,6 +77,8 @@ A branch is ready for `pr-description` only when all of these are true:
 ## Verdicts
 
 Use one of these verdicts:
+
+- If more than one blocking gate is unmet, issue verdict `Needs focused fixes before PR` and list all unmet gates under Findings in priority order: (1) conformance, (2) adversarial review, (3) release-log, (4) validation. The Next Step must list all required gates in sequence.
 
 - `Ready for pr-description`
 - `Run milestone-conformance-review first`
