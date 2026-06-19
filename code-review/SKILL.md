@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Use when reviewing code changes, PR diffs, or deciding whether an implementation is ready to merge. For collecting, fixing, replying to, or resolving PR review threads, use review-comments instead.
+description: Use when reviewing code changes, PR diffs, or deciding whether an implementation is ready to merge. Delegates to adversarial-reviewer when available. For collecting, fixing, replying to, or resolving PR review threads, use review-comments instead.
 ---
 
 # Code Review Skill
@@ -11,14 +11,18 @@ Review changes for correctness, maintainability, scope control, and alignment wi
 
 ## Delegation default
 
+Invoking this skill is an explicit request to use its delegated review agent
+when multi-agent spawning is available. Do not run this review locally merely
+because the user did not separately say "use a subagent."
+
 When this skill is invoked from a conversation that is not already running
-inside a spawned/delegated agent and a multi-agent
-spawn tool is available, do not perform the review in the current conversation
-context. Spawn a separate review agent instead.
+inside a spawned/delegated agent and a multi-agent spawn tool is available, do
+not perform the review in the current conversation context. Spawn a separate
+review agent instead.
 
 Use this delegation pattern:
 
-1. Spawn one `explorer` agent with `fork_context: true`.
+1. Spawn one `adversarial-reviewer` agent with `fork_context: true`.
 2. Give the agent a self-contained prompt to run this code-review workflow on
    the current repository or requested PR/diff.
 3. Explicitly tell the spawned agent it is the delegated review agent and must

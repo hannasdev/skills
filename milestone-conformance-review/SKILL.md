@@ -1,6 +1,6 @@
 ---
 name: milestone-conformance-review
-description: Review whether an implementation branch satisfies an initiative milestone. Use after milestone implementation and before PR prep, or after substantial feedback-driven changes, to compare the branch diff against main with active initiative docs, milestones.md, optional architecture.md, the selected milestone gate, acceptance criteria, non-goals, and test evidence.
+description: Review whether an implementation branch satisfies an initiative milestone. Delegates to conformance-auditor when available. Use after milestone implementation and before PR prep, or after substantial feedback-driven changes, to compare the branch diff against main with active initiative docs, milestones.md, optional architecture.md, the selected milestone gate, acceptance criteria, non-goals, and test evidence.
 ---
 
 # Milestone Conformance Review
@@ -20,7 +20,12 @@ Use `pre-pr-adversary-review` or `code-review` separately for bugs, maintainabil
 
 ## Delegation Default
 
-When a multi-agent spawn tool is available, prefer a cold delegated conformance agent. Give it:
+Invoking this skill is an explicit request to use `conformance-auditor` when
+multi-agent spawning is available. Do not run this review locally merely
+because the user did not separately say "use a subagent."
+
+When a multi-agent spawn tool is available, spawn a cold delegated
+`conformance-auditor` agent. Give it:
 
 - initiative PRD
 - milestones file

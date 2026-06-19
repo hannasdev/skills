@@ -1,6 +1,6 @@
 ---
 name: initiative-adversary-review
-description: Adversarially review initiative planning artifacts before implementation or activation. Use when reviewing initiative PRDs, milestones, optional architecture notes, or similar repository planning docs against product principles, target architecture, repo guidance, scope clarity, milestone quality, risk coverage, and testability before moving work into active implementation.
+description: Adversarially review initiative planning artifacts before implementation or activation. Delegates to adversarial-reviewer when available. Use when reviewing initiative PRDs, milestones, optional architecture notes, or similar repository planning docs against product principles, target architecture, repo guidance, scope clarity, milestone quality, risk coverage, and testability before moving work into active implementation.
 ---
 
 # Initiative Adversary Review
@@ -13,7 +13,13 @@ This is not an implementation review. Do not require a diff, and do not judge co
 
 ## Delegation Default
 
-When a multi-agent spawn tool is available, prefer a cold delegated review agent. Give it only the initiative artifacts and relevant repository source-of-truth docs, not the whole planning conversation.
+Invoking this skill is an explicit request to use `adversarial-reviewer` when
+multi-agent spawning is available. Do not run this review locally merely
+because the user did not separately say "use a subagent."
+
+When a multi-agent spawn tool is available, spawn a cold delegated
+`adversarial-reviewer` agent. Give it only the initiative artifacts and
+relevant repository source-of-truth docs, not the whole planning conversation.
 
 If delegation is unavailable, perform the review locally and state that the review did not run in a cold context.
 

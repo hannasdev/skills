@@ -1,6 +1,6 @@
 ---
 name: copilot-feedback-gate
-description: Assess GitHub Copilot or reviewer feedback after a PR review to decide whether ordinary review-comment handling is enough or whether milestone conformance and adversarial review gates must be rerun. Use when PR feedback includes multiple functionality comments, missed acceptance criteria, architecture concerns, systemic test gaps, scope drift, or repeated back-and-forth risk.
+description: Assess GitHub Copilot or reviewer feedback after a PR review to decide whether ordinary review-comment handling is enough or whether milestone conformance and adversarial review gates must be rerun. Delegates to light-gate when available. Use when PR feedback includes multiple functionality comments, missed acceptance criteria, architecture concerns, systemic test gaps, scope drift, or repeated back-and-forth risk.
 ---
 
 # Copilot Feedback Gate
@@ -10,6 +10,25 @@ description: Assess GitHub Copilot or reviewer feedback after a PR review to dec
 Prevent PR feedback loops from turning into piecemeal patching. This skill classifies GitHub Copilot or reviewer feedback and decides whether to route through normal review-comment handling or return to local review gates.
 
 Use `review-comments` for collecting, implementing, replying to, and resolving PR threads. Use this skill to decide whether the feedback means the branch needs another milestone conformance or adversarial review pass.
+
+## Delegation Default
+
+Invoking this skill is an explicit request to use `light-gate` when multi-agent
+spawning is available. Do not run this gate locally merely because the user did
+not separately say "use a subagent."
+
+When this skill is invoked from a conversation that is not already running
+inside a spawned/delegated agent and a multi-agent spawn tool is available,
+spawn a `light-gate` agent with the unresolved feedback, PR context, and any
+relevant milestone or review-gate results. The delegated agent should classify
+feedback and recommend the route; the main conversation keeps ownership of
+implementation, replies, and thread resolution.
+
+If delegation is unavailable, perform the feedback gate in the current context
+and note that the delegation fallback was used.
+
+If this skill is already running inside a spawned/delegated light-gate agent,
+perform the gate locally and do not spawn another agent.
 
 ## Required Process
 

@@ -1,6 +1,6 @@
 ---
 name: pre-pr-adversary-review
-description: Use before preparing a pull request description, opening or updating a PR, publishing changes, or running other PR-related skills. Performs an adversarial pre-review of the branch diff to catch contract drift, missing edge-case validation, weak tests, documentation/release-log gaps, migration risks, and side-effect ordering problems before reviewers see the PR.
+description: Use before preparing a pull request description, opening or updating a PR, publishing changes, or running other PR-related skills. Delegates to adversarial-reviewer when available. Performs an adversarial pre-review of the branch diff to catch contract drift, missing edge-case validation, weak tests, documentation/release-log gaps, migration risks, and side-effect ordering problems before reviewers see the PR.
 ---
 
 # Pre-PR Adversary Review
@@ -17,6 +17,24 @@ Run this skill before:
 - asking for final PR prep after implementation
 
 If another PR-related skill is also relevant, run this skill first, then continue to that skill with the findings.
+
+## Delegation Default
+
+Invoking this skill is an explicit request to use `adversarial-reviewer` when
+multi-agent spawning is available. Do not run this review locally merely
+because the user did not separately say "use a subagent."
+
+When this skill is invoked from a conversation that is not already running
+inside a spawned/delegated agent and a multi-agent spawn tool is available,
+spawn a clean `adversarial-reviewer` agent with the repository guidance, branch
+boundary, intended contract, branch diff, relevant durable artifacts, and any
+available validation evidence.
+
+If delegation is unavailable, perform the adversarial review in the current
+context and note that the delegation fallback was used.
+
+If this skill is already running inside a spawned/delegated adversarial review
+agent, perform the review locally and do not spawn another review agent.
 
 ## Required Process
 

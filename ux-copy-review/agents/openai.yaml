@@ -1,0 +1,4 @@
+interface:
+  display_name: "UX Copy Review"
+  short_description: "Review copy for first-time clarity"
+  default_prompt: "Use $ux-copy-review to review this user-facing copy or workflow for first-time user clarity."

@@ -1,6 +1,6 @@
 ---
 name: pr-readiness-gate
-description: Use immediately before opening, updating, or marking a pull request ready. Orchestrates the final pre-PR checks so initiative scope, adversarial review, release-log hygiene, and validation evidence are in place before reviewers see the branch. If git status or branch diff is unavailable, issue verdict `Needs human decision` with finding "Cannot inspect branch state -- provide git diff output or describe the changes made before proceeding."
+description: Use immediately before opening, updating, or marking a pull request ready. Delegates to light-gate when available. Orchestrates the final pre-PR checks so initiative scope, adversarial review, release-log hygiene, and validation evidence are in place before reviewers see the branch. If git status or branch diff is unavailable, issue verdict `Needs human decision` with finding "Cannot inspect branch state -- provide git diff output or describe the changes made before proceeding."
 ---
 
 # PR Readiness Gate
@@ -29,6 +29,24 @@ Use this skill when the user asks to:
 - sanity-check whether the current branch is ready for reviewers
 
 Use it after implementation and before `pr-description`.
+
+## Delegation Default
+
+Invoking this skill is an explicit request to use `light-gate` when multi-agent
+spawning is available. Do not run this gate locally merely because the user did
+not separately say "use a subagent."
+
+When this skill is invoked from a conversation that is not already running
+inside a spawned/delegated agent and a multi-agent spawn tool is available,
+spawn a `light-gate` agent to run the readiness assessment. The delegated agent
+should return the verdict and next skill, while the main conversation keeps
+ownership of any follow-up action.
+
+If delegation is unavailable, perform the readiness gate in the current context
+and note that the delegation fallback was used.
+
+If this skill is already running inside a spawned/delegated light-gate agent,
+perform the gate locally and do not spawn another agent.
 
 ## Required Process
 

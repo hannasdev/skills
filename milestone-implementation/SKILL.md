@@ -1,6 +1,6 @@
 ---
 name: milestone-implementation
-description: Implement exactly one initiative milestone from an implementation packet. Use after initiative-activation when a builder agent should work from the packet, active initiative docs, repo rules, acceptance criteria, explicit non-goals, required validation, and known risks; return an implementation report without declaring the milestone complete.
+description: Implement exactly one initiative milestone from an implementation packet. Delegates to builder when available. Use after initiative-activation when a builder agent should work from the packet, active initiative docs, repo rules, acceptance criteria, explicit non-goals, required validation, and known risks; return an implementation report without declaring the milestone complete.
 ---
 
 # Milestone Implementation
@@ -10,6 +10,24 @@ description: Implement exactly one initiative milestone from an implementation p
 Build the selected milestone from the implementation packet. This is the builder role: implement, test, and report. Do not declare the milestone accepted or PR-ready.
 
 Completion belongs to `milestone-conformance-review` and `pre-pr-adversary-review`.
+
+## Delegation Default
+
+Invoking this skill is an explicit request to use `builder` when multi-agent
+spawning is available. Do not implement locally merely because the user did not
+separately say "use a subagent."
+
+When this skill is invoked from a conversation that is not already running
+inside a spawned/delegated agent and a multi-agent spawn tool is available,
+spawn a clean `builder` agent with the implementation packet and durable
+initiative artifacts. Do not include the full planning conversation unless the
+missing context has been copied into durable artifacts or the packet.
+
+If delegation is unavailable, perform the implementation in the current context
+and note that the delegation fallback was used.
+
+If this skill is already running inside a spawned/delegated builder agent,
+perform the implementation locally and do not spawn another builder agent.
 
 ## Inputs
 
