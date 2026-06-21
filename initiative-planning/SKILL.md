@@ -1,6 +1,6 @@
 ---
 name: initiative-planning
-description: Create or update durable initiative planning artifacts from a concept discussion. Use when turning an idea, product change, architecture change, roadmap item, or implementation plan into repository initiative documents such as PRDs, milestones, and optional architecture notes; when reviewing or revising those planning artifacts before activation; or when replacing ad hoc PRD/issue planning with milestone-based initiative documentation.
+description: Create or update durable initiative planning artifacts from a concept discussion, including a user-perspective UX preview and human approval checkpoint before activation or implementation. Use when turning an idea, product change, architecture change, roadmap item, or implementation plan into repository initiative documents such as PRDs, milestones, and optional architecture notes; when reviewing or revising those planning artifacts before activation; or when replacing ad hoc PRD/issue planning with milestone-based initiative documentation.
 ---
 
 # Initiative Planning
@@ -37,6 +37,8 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
 4. Write the PRD.
    - Focus on problem, value, scope, non-goals, design alignment, risks, and acceptance criteria.
    - Preserve important rationale from the discussion as durable text.
+   - Include a user-perspective preview that explains what the result will look and feel like to the affected user, maintainer, or operator before implementation begins.
+   - Include an explicit human approval checkpoint. Approval is pending by default unless the user has already approved the preview in clear terms.
    - Do not include implementation chatter that will age quickly.
 5. Write milestones.
    - Break work into independently reviewable gates.
@@ -47,14 +49,23 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
 6. Add architecture notes when needed.
    - Capture decisions, constraints, ownership boundaries, data/API contracts, migration strategy, failure modes, and alternatives considered.
    - Keep architecture notes tied to the initiative; promote to global architecture docs only when the repository's durable design contract changes.
-7. Self-review the artifacts.
+7. Prepare the UX and human approval review.
+   - Summarize the user-visible outcome in concrete terms: primary users, visible surfaces, expected workflow, changed copy or commands, generated artifacts, error states, and what intentionally will not change.
+   - For UI-heavy work, include a low-fidelity sketch, screen inventory, state list, or screenshot/mockup requirement when that would expose misunderstandings before implementation.
+   - For non-UI work, describe the maintainer/operator experience: commands, config, logs, diagnostics, documentation, migration flow, or API behavior.
+   - Call out assumptions and gaps that could change the user experience.
+   - Do not activate the initiative, recommend implementation, or treat the plan as accepted until the human approval checkpoint is approved, unless the user explicitly overrides this gate.
+8. Self-review the artifacts.
    - Check alignment with product/design principles and target architecture.
    - Check that acceptance criteria are testable.
    - Check that non-goals prevent obvious scope creep.
    - Check that every milestone's scope budget is plausible and that any exceeded tripwire has a clear split rationale.
    - Check that risks have validation or decision paths.
-8. Report the result.
+   - Check that the user-perspective preview is specific enough for a human to notice gaps before implementation.
+   - Check that the approval state is explicit and not implied by the existence of planning docs.
+9. Report the result.
    - List created/updated files.
+   - Summarize the user-perspective preview and approval status.
    - Summarize milestone gates.
    - Call out open questions, risks, and recommended next review.
 
@@ -71,6 +82,8 @@ When drafting initiative artifacts:
 - record implementation decisions that are already settled;
 - record testing strategy and prior art;
 - keep explicit out-of-scope decisions;
+- make the expected user, maintainer, or operator experience reviewable before implementation;
+- keep human approval state visible and separate from technical readiness;
 - use durable repository files as the source of truth.
 
 ## Quality Bar
@@ -80,6 +93,8 @@ Good initiative planning:
 - makes the next implementation packet obvious;
 - lets a cold conformance reviewer compare branch diff to milestone promise;
 - names risks before implementation starts;
+- shows the human what the delivered experience is expected to be before committing to implementation;
+- prevents activation from being treated as a purely technical handoff when product or UX understanding is still unapproved;
 - keeps milestones small enough to review and merge;
 - makes likely review burden visible before activation;
 - separates product promise from implementation notes;
@@ -92,6 +107,7 @@ Avoid:
 - acceptance criteria that cannot be tested or reviewed;
 - architecture decisions hidden only in prose summaries;
 - scope expansion disguised as "cleanup";
+- approval implied only by draft creation or lack of objections;
 - moving work to `active/` before the initiative has been accepted.
 
 ## Next Skill
@@ -100,4 +116,5 @@ End by recommending the next skill:
 
 - If the initiative docs are ready for critique, recommend `initiative-adversary-review`.
 - If open questions block a useful review, recommend continuing `initiative-planning` after the user decides.
-- If the user wants implementation immediately, still recommend `initiative-adversary-review` before `initiative-activation` unless they explicitly accept the risk.
+- If the UX preview or human approval checkpoint is pending, recommend human review before `initiative-adversary-review` or activation.
+- If the user wants implementation immediately, still recommend human approval and `initiative-adversary-review` before `initiative-activation` unless they explicitly accept the risk.

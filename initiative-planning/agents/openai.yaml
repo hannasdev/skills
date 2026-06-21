@@ -1,4 +1,4 @@
 interface:
   display_name: "Initiative Planning"
-  short_description: "Create initiative PRD, milestones, and architecture artifacts."
-  default_prompt: "Plan an initiative from the current discussion and create the durable initiative documents."
+  short_description: "Create initiative docs with UX preview and approval checkpoint."
+  default_prompt: "Plan an initiative from the current discussion, create durable initiative documents, and include the user-perspective preview and human approval checkpoint."

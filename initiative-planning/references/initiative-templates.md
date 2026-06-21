@@ -10,6 +10,7 @@ Use these templates when a repository does not already provide local initiative 
 ## Status
 
 - State: Backlog
+- Human approval: Pending
 - Owner: <human or team, if known>
 - Created: YYYY-MM-DD
 - Related docs: <links>
@@ -35,6 +36,23 @@ Explain how the initiative aligns with the repository's product principles, desi
 ## Proposed Solution
 
 Describe the intended behavior and durable workflow. Keep details stable enough to survive implementation.
+
+## User-Perspective Preview
+
+- Primary users: <who experiences the change>
+- Result they should experience: <plain-language outcome>
+- Visible surfaces: <UI screens, CLI commands, docs, config, generated artifacts, logs, API behavior, or other touchpoints>
+- Key workflow: <before/after or step-by-step flow>
+- States and edge cases: <empty, loading, error, permission, migration, rollback, or no-op states that matter>
+- What will not change: <important non-changes from the user's perspective>
+- UX assumptions or gaps: <anything that needs human confirmation before implementation>
+
+## Human Approval Checkpoint
+
+- Approval state: Pending
+- Reviewer: <human or team>
+- Decision date: <YYYY-MM-DD once approved or changes requested>
+- Decision notes: <approved, changes requested, or explicit override rationale>
 
 ## User / Maintainer Workflows
 
