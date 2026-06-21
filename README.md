@@ -48,7 +48,7 @@ concept
 | UX Copy Reviewer | Full or focused | `ux-copy-review` |
 | `adversarial-reviewer` | Clean | `initiative-adversary-review` |
 | Activator | Main | `initiative-activation` |
-| `builder` | Clean packet-only | `milestone-implementation`, `testing`, `refactoring` |
+| `builder` | Clean packet-only | `milestone-implementation`, `testing`, `refactoring`, `commit` |
 | `conformance-auditor` | Clean | `milestone-conformance-review` |
 | `adversarial-reviewer` | Clean | `pre-pr-adversary-review`, `code-review` |
 | PR Publisher | Main | `pr-description`, `release-log`, `commit` |
@@ -96,7 +96,7 @@ Custom agent source files live in `agents/` and should be installed to
 | Agent | Model | Reasoning | Use |
 | --- | --- | --- | --- |
 | `light-gate` | `gpt-5.4-mini` | low | Quick readiness, existence, and routing checks |
-| `builder` | `gpt-5.5` | medium | Focused implementation, tests, and refactors |
+| `builder` | `gpt-5.5` | medium | Focused implementation, tests, commits, and refactors |
 | `conformance-auditor` | `gpt-5.5` | high | Milestone acceptance and evidence review |
 | `adversarial-reviewer` | `gpt-5.5` | xhigh | Deep bug, contract, edge-case, and review-risk analysis |
 
