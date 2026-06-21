@@ -1,13 +1,13 @@
 ---
 name: milestone-implementation
-description: Implement exactly one initiative milestone from an implementation packet. Delegates to builder when available. Use after initiative-activation when a builder agent should work from the packet, active initiative docs, repo rules, acceptance criteria, explicit non-goals, required validation, and known risks; return an implementation report without declaring the milestone complete.
+description: Implement exactly one initiative milestone from an implementation packet and create a focused implementation commit on the milestone branch. Delegates to builder when available. Use after initiative-activation when a builder agent should work from the packet, active initiative docs, repo rules, acceptance criteria, explicit non-goals, required validation, and known risks; return an implementation report with commit details without declaring the milestone complete.
 ---
 
 # Milestone Implementation
 
 ## Purpose
 
-Build the selected milestone from the implementation packet. This is the builder role: implement, test, and report. Do not declare the milestone accepted or PR-ready.
+Build the selected milestone from the implementation packet. This is the builder role: implement, test, commit, and report. Do not declare the milestone accepted or PR-ready.
 
 Completion belongs to `milestone-conformance-review` and `pre-pr-adversary-review`.
 
@@ -76,8 +76,17 @@ If the packet is missing critical information, inspect the active initiative doc
    - Check non-goals were respected.
    - Compare the actual change against the scope budget and call out exceeded tripwires.
    - Check docs/release-log/bookkeeping expectations from the packet.
-7. Return an implementation report.
+7. Commit implementation changes.
+   - Treat this skill invocation as explicit authorization to create a focused implementation commit for the selected milestone.
+   - Use `commit` for commit inspection, staging, message quality, and DCO sign-off rules.
+   - Commit only after validation and self-review are complete, unless validation could not run or failed for a documented pre-existing or environmental reason.
+   - Stage only files that belong to the selected milestone. Leave unrelated local changes unstaged.
+   - If milestone changes cannot be separated safely from unrelated edits, stop and ask for direction instead of committing.
+   - If there are no implementation changes after validation, do not create an empty commit; report that no commit was created and why.
+   - Do not leave successful milestone implementation changes uncommitted.
+8. Return an implementation report.
    - Use `references/implementation-report-template.md`.
+   - Include the commit hash and subject, or explain why no commit was created.
    - Include assumptions and known gaps honestly.
    - Do not say the milestone passed; say what changed and what was tested.
 
@@ -90,6 +99,7 @@ If the packet is missing critical information, inspect the active initiative doc
 - Do not mark milestone status complete unless the packet explicitly asks for implementation-side bookkeeping.
 - Do not open a PR from this skill; hand off to review first.
 - Do not claim tests passed unless commands were run.
+- Do not skip the implementation commit when milestone changes are ready to review.
 
 ## Next Skill
 

@@ -7,6 +7,7 @@ Initiative: <path>
 Milestone: <heading>
 Branch: <branch>
 Base: <base>
+Commit: <short sha and subject, or "not created: <reason>">
 
 ## Summary
 
