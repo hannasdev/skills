@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Quality Review"
+  short_description: "Audit whether tests prove PR claims"
+  default_prompt: "Use $test-quality-review to audit whether the changed tests actually prove the branch behavior."

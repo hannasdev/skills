@@ -47,16 +47,26 @@ agent, perform the review locally and do not spawn another review agent.
 2. Identify the intended contract.
    - Summarize what changed in user-facing, maintainer-facing, tool/API, data, migration, generated artifact, and test behavior.
    - Note any public schemas, tool descriptions, docs, release notes, generated files, or examples that should match the implementation.
-3. Run the adversarial checklist below.
-4. Classify findings.
+3. Run test-quality review when the branch changes test evidence.
+   - If the branch adds or changes tests, fixtures, snapshots/golden outputs, generated reports, schemas/contracts, CLI behavior, CSV/JSON/Markdown assertions, or validation helpers, use `test-quality-review` before declaring there are no weak-test findings.
+   - The sub-check must answer whether the tests prove the risky behavior, not merely whether tests exist or pass.
+   - Carry any `Should Fix` or `Needs Better Evidence` result into this review's findings unless it is fixed before the final verdict.
+4. Run the adversarial checklist below.
+5. Classify findings.
    - **Blocking:** likely correctness, safety, migration, contract, or data-loss issue.
    - **Should fix before PR:** likely reviewer comment or avoidable churn.
    - **Consider:** optional cleanup, extra coverage, or tradeoff worth naming in the PR.
    - **No action:** checked and acceptable.
-5. Recommend fixes before PR prep.
+6. Recommend fixes before PR prep.
    - Prefer small, targeted changes and tests.
    - Do not expand scope unless the issue threatens correctness, safety, or the advertised contract.
-6. After fixes, rerun the relevant checks and update the PR description inputs with remaining risks/tradeoffs.
+7. Record adversarial-review lifecycle state.
+   - If no `Blocking` or `Should Fix Before PR` findings remain and the initiative has `initiative.json`, run the lifecycle transition before PR prep:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-adversarial-review --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+   - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit only the resulting lifecycle/bookkeeping diff with `commit` before PR prep.
+   - If unrelated local changes prevent a clean lifecycle commit, report the blocker instead of leaving the transition uncommitted.
+   - Do not record adversarial review when `test-quality-review` returns `Should Fix` or `Needs Better Evidence`.
+8. After fixes, rerun the relevant checks and update the PR description inputs with remaining risks/tradeoffs.
 
 ## Adversarial Checklist
 
@@ -101,6 +111,7 @@ agent, perform the review locally and do not spawn another review agent.
 
 - Tests cover the changed success path and at least one meaningful failure/edge path.
 - Tests prove the behavior, not just text that could appear for unrelated reasons.
+- Changed assertions bind to exact values, parsed fields, structured output, or observable behavior rather than generic truthiness or substring presence.
 - For rendered artifacts, assertions exercise the actual rendering path and page/layout state when relevant.
 - For docs/examples, examples do not mask `{ ok: false }` responses as empty results.
 
@@ -115,11 +126,12 @@ agent, perform the review locally and do not spawn another review agent.
 
 For initiative-based work, especially after `milestone-conformance-review` returns or appears likely to return `Pass`:
 
-- If the branch completes the final milestone, PRD, milestones, product/source-of-truth docs, and release/completion notes must agree with that completed lifecycle state before PR prep.
-- If all milestones are complete, the active initiative should move to the repository's done/completed location in the implementation PR unless the user explicitly defers that bookkeeping.
+- Prefer `initiative.json` and lifecycle tooling over Markdown status inference. Markdown summaries must not contradict JSON state.
+- If the branch completes the final milestone, `initiative.json`, PRD, milestones, product/source-of-truth docs, and release/completion notes must agree with `complete_on_merge` or completed lifecycle state before PR prep.
+- If all milestones are complete, stable initiative paths are acceptable when `initiative.json` records `state: "complete"` or `state: "complete_on_merge"` with PR/date evidence. Do not require a routine `done/` folder move unless local policy explicitly does.
 - If the branch completes a non-final milestone, the initiative should remain active and identify the next milestone; it should not churn between active/backlog/done locations.
 - If the docs still say the completed milestone is `in implementation`, `pending`, `TBD`, or active without an explicit deferral, classify it as **Should fix before PR**.
-- When available, run the read-only checker and include its result:
+- When available, run the lifecycle checker and include its result:
   `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
 
 ## Output Format

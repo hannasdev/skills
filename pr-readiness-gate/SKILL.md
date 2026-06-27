@@ -73,9 +73,12 @@ perform the gate locally and do not spawn another agent.
 5. Check validation evidence.
    - Confirm there are concrete commands and outcomes that can be cited in the PR.
    - For behavior changes, expect focused evidence for at least one meaningful edge case or failure path, not only the main happy path.
+   - If tests, fixtures, snapshots, schemas, generated reports, CLI outputs, or structured assertion files changed, require a current `test-quality-review` result or route through `pre-pr-adversary-review` so test proof quality is checked.
    - If needed proof is missing, route through `testing` before PR prep.
 6. Check durable artifact hygiene.
    - Product or initiative docs should not use branch-specific or review-state wording that will go stale after merge.
+   - If initiative work has `initiative.json`, run lifecycle tooling before relying on Markdown summaries:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --strict`
    - Generated docs and tool descriptions should match the implementation when applicable.
    - Open blockers from prior reviews or gates must be fixed or explicitly carried forward as risks.
 7. Produce a readiness verdict.

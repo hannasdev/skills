@@ -6,6 +6,9 @@ import { fileURLToPath } from "node:url";
 const REVIEW_COMMENTS_SCRIPT = fileURLToPath(
   new URL("../../review-comments/scripts/review-comments.mjs", import.meta.url)
 );
+const LIFECYCLE_SCRIPT = fileURLToPath(
+  new URL("../../initiative-completion/scripts/initiative-lifecycle.mjs", import.meta.url)
+);
 
 function parseArgs(argv) {
   const args = {
@@ -13,6 +16,9 @@ function parseArgs(argv) {
     branch: null,
     deleteRemote: false,
     repo: null,
+    initiative: null,
+    milestone: null,
+    recordLifecycle: false,
     help: false,
   };
 
@@ -46,6 +52,31 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (token === "--record-lifecycle") {
+      args.recordLifecycle = true;
+      continue;
+    }
+
+    if (token === "--initiative") {
+      const value = argv[i + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error("Provide --initiative <path>.");
+      }
+      args.initiative = value;
+      i += 1;
+      continue;
+    }
+
+    if (token === "--milestone") {
+      const value = argv[i + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error("Provide --milestone <id>.");
+      }
+      args.milestone = value;
+      i += 1;
+      continue;
+    }
+
     if (token === "--repo") {
       const value = argv[i + 1];
       if (!value || value.startsWith("--") || !value.includes("/")) {
@@ -65,6 +96,12 @@ function parseArgs(argv) {
 
   if (!args.pr || !args.branch) {
     throw new Error("Missing required flags: --pr <number> --branch <name>");
+  }
+  if ((args.initiative && !args.milestone) || (!args.initiative && args.milestone)) {
+    throw new Error("Pass --initiative and --milestone together for lifecycle checks.");
+  }
+  if (args.recordLifecycle && (!args.initiative || !args.milestone)) {
+    throw new Error("Pass --initiative and --milestone with --record-lifecycle.");
   }
   args.repo = args.repo || detectCurrentRepo();
 
@@ -110,12 +147,14 @@ function printHelp() {
     "post-merge-cleanup.mjs",
     "",
     "Usage:",
-    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr <number> --branch <name> [--repo <owner/repo>] [--delete-remote]",
+    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr <number> --branch <name> [--repo <owner/repo>] [--delete-remote] [--initiative <path> --milestone <id>] [--record-lifecycle]",
     "",
     "Examples:",
     "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format",
     "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --repo owner/repo",
     "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --delete-remote",
+    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --initiative docs/initiatives/active/example --milestone M3",
+    "  node skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/beta-epigraph-export-format --initiative docs/initiatives/active/example --milestone M3 --record-lifecycle",
   ].join("\n"));
 }
 
@@ -179,6 +218,47 @@ function getThreadStatus(pr, repo) {
   return match ? Number.parseInt(match[1], 10) : null;
 }
 
+function checkLifecycle(args) {
+  if (!args.initiative || !args.milestone) {
+    return "skipped";
+  }
+  const output = run("node", [
+    LIFECYCLE_SCRIPT,
+    "check",
+    "--initiative",
+    args.initiative,
+    "--milestone",
+    args.milestone,
+    "--pr",
+    String(args.pr),
+    "--strict",
+  ]);
+  const statusMatch = output.match(/^- Check:\s+(.+)$/m);
+  return statusMatch ? statusMatch[1] : "checked";
+}
+
+function recordLifecycleMerge(args, mergedAt) {
+  if (!args.recordLifecycle) {
+    return "skipped";
+  }
+  const output = run("node", [
+    LIFECYCLE_SCRIPT,
+    "record-merged",
+    "--initiative",
+    args.initiative,
+    "--milestone",
+    args.milestone,
+    "--pr",
+    String(args.pr),
+    "--date",
+    mergedAt.slice(0, 10),
+  ]);
+  const statusMatch = output.match(/^- Check:\s+(.+)$/m);
+  const diff = runSoft("git", ["status", "--short", "--", args.initiative]);
+  const localDiff = diff.ok && diff.output ? diff.output.replace(/\n/g, "; ") : "none";
+  return `${statusMatch ? statusMatch[1] : "recorded"}; local diff: ${localDiff}`;
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
@@ -190,6 +270,8 @@ function main() {
   ensureMainSynced();
   const localDelete = deleteLocalBranch(args.branch);
   const remoteDelete = args.deleteRemote ? deleteRemoteBranch(args.branch) : "skipped";
+  const lifecycleCheck = checkLifecycle(args);
+  const lifecycle = recordLifecycleMerge(args, prStatus.mergedAt);
   const unresolved = getThreadStatus(args.pr, args.repo);
   const currentBranch = run("git", ["branch", "--show-current"]);
 
@@ -200,6 +282,8 @@ function main() {
     `Current branch: ${currentBranch}`,
     `Local branch cleanup (${args.branch}): ${localDelete}`,
     `Remote branch cleanup (${args.branch}): ${remoteDelete}`,
+    `Lifecycle check: ${lifecycleCheck}`,
+    `Lifecycle recording: ${lifecycle}`,
     `Unresolved review threads: ${unresolved ?? "unknown"}`,
   ].join("\n"));
 }

@@ -35,6 +35,7 @@ feat(router)!: remove legacy routing policy
 
 ### Commit Creation and Inspection
 * Do not create a commit unless the user has directly requested it using explicit commands like "commit", "prepare a commit", "stage and commit", "create a commit", or equivalent phrases that unmistakably indicate intent to create a commit. Ambiguous requests like "save this" or "finalize" do not qualify.
+* Higher-level workflow skills may grant scoped commit authorization in their own instructions. `initiative-activation`, `milestone-implementation`, `review-comments`, and lifecycle-transition tooling count as explicit authorization only for the focused commit required by that workflow.
 * Always inspect the working tree before proposing or creating commits.
 * Always inspect the staged diff before writing the final commit message.
 
@@ -56,7 +57,7 @@ feat(router)!: remove legacy routing policy
 
 | |
 |-|
-| Explicit request only; no indirect/ambiguous requests |
+| Explicit request only, except scoped commits authorized by workflow skills |
 | Inspect working tree and staged diff always |
 | Precise staging; never hide unrelated changes |
 | One logical change per commit; split unrelated changes |

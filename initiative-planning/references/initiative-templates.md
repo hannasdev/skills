@@ -80,12 +80,31 @@ Describe the unit, integration, contract, generated-output, migration, manual, o
 - [ ] <Question requiring human/product/architecture decision>
 ```
 
+## `initiative.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "slug": "<initiative-slug>",
+  "state": "backlog",
+  "currentMilestone": null,
+  "milestones": {
+    "M1": {
+      "state": "not_started"
+    },
+    "M2": {
+      "state": "not_started"
+    }
+  }
+}
+```
+
 ## `milestones.md`
 
 ```markdown
 # <Initiative Name> Milestones
 
-## Milestone 1: <Outcome Name>
+## M1: <Outcome Name>
 
 ### Outcome
 
@@ -125,12 +144,7 @@ Describe the smallest coherent outcome this milestone delivers.
 
 ### Status
 
-- [ ] Not started
-- [ ] Implemented
-- [ ] Conformance reviewed
-- [ ] Adversarially reviewed
-- [ ] PR opened
-- [ ] Merged
+Lifecycle state lives in `initiative.json`. Use this section only for human-readable notes that do not contradict the structured state.
 ```
 
 Repeat the milestone block for each independently reviewable gate.

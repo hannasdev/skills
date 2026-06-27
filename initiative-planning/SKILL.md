@@ -14,6 +14,7 @@ Default to the repository's local convention. If none exists, use:
 ```text
 docs/initiatives/backlog/<initiative-slug>/prd.md
 docs/initiatives/backlog/<initiative-slug>/milestones.md
+docs/initiatives/backlog/<initiative-slug>/initiative.json
 docs/initiatives/backlog/<initiative-slug>/architecture.md
 ```
 
@@ -46,24 +47,32 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
    - Prefer vertical slices that leave the repository in a coherent state after each milestone.
    - Add a scope budget for each milestone. Treat the budget as a planning tripwire, not a hard rule: prefer 3-5 acceptance criteria, no more than 2 major subsystem boundaries, an estimated non-generated diff under 800 changed lines, and one focused validation story.
    - If a milestone exceeds any tripwire, either split it or record why the larger milestone is still the most reviewable shape.
-6. Add architecture notes when needed.
+6. Write structured lifecycle state.
+   - Create or update `initiative.json` beside the Markdown files.
+   - Treat JSON as the source of truth for process state and Markdown as human-readable rationale and acceptance criteria.
+   - Start new planning work with `state: "backlog"`, `currentMilestone: null` or the first planned milestone when local convention expects one, and each milestone set to `state: "not_started"`.
+   - After creating or updating the file, validate it with lifecycle tooling when available:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs status --repo <repo> --initiative <initiative-path>`
+   - Do not encode deferred milestones as normal unchecked lifecycle boxes in Markdown; use structured `state: "deferred"` when a deferral decision exists.
+7. Add architecture notes when needed.
    - Capture decisions, constraints, ownership boundaries, data/API contracts, migration strategy, failure modes, and alternatives considered.
    - Keep architecture notes tied to the initiative; promote to global architecture docs only when the repository's durable design contract changes.
-7. Prepare the UX and human approval review.
+8. Prepare the UX and human approval review.
    - Summarize the user-visible outcome in concrete terms: primary users, visible surfaces, expected workflow, changed copy or commands, generated artifacts, error states, and what intentionally will not change.
    - For UI-heavy work, include a low-fidelity sketch, screen inventory, state list, or screenshot/mockup requirement when that would expose misunderstandings before implementation.
    - For non-UI work, describe the maintainer/operator experience: commands, config, logs, diagnostics, documentation, migration flow, or API behavior.
    - Call out assumptions and gaps that could change the user experience.
    - Do not activate the initiative, recommend implementation, or treat the plan as accepted until the human approval checkpoint is approved, unless the user explicitly overrides this gate.
-8. Self-review the artifacts.
+9. Self-review the artifacts.
    - Check alignment with product/design principles and target architecture.
    - Check that acceptance criteria are testable.
    - Check that non-goals prevent obvious scope creep.
    - Check that every milestone's scope budget is plausible and that any exceeded tripwire has a clear split rationale.
+   - Check that `initiative.json` matches the planned milestone IDs and does not contradict Markdown summaries.
    - Check that risks have validation or decision paths.
    - Check that the user-perspective preview is specific enough for a human to notice gaps before implementation.
    - Check that the approval state is explicit and not implied by the existence of planning docs.
-9. Report the result.
+10. Report the result.
    - List created/updated files.
    - Summarize the user-perspective preview and approval status.
    - Summarize milestone gates.

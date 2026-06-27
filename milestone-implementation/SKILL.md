@@ -76,7 +76,11 @@ If the packet is missing critical information, inspect the active initiative doc
    - Check non-goals were respected.
    - Compare the actual change against the scope budget and call out exceeded tripwires.
    - Check docs/release-log/bookkeeping expectations from the packet.
-7. Commit implementation changes.
+7. Record implementation lifecycle state.
+   - If the initiative has `initiative.json`, run the lifecycle transition before committing so the bookkeeping is included in the implementation commit:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs mark-implemented --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+   - Do not mark conformance, adversarial review, PR, merge, or completion state from this skill.
+8. Commit implementation changes.
    - Treat this skill invocation as explicit authorization to create a focused implementation commit for the selected milestone.
    - Use `commit` for commit inspection, staging, message quality, and DCO sign-off rules.
    - Commit only after validation and self-review are complete, unless validation could not run or failed for a documented pre-existing or environmental reason.
@@ -84,7 +88,7 @@ If the packet is missing critical information, inspect the active initiative doc
    - If milestone changes cannot be separated safely from unrelated edits, stop and ask for direction instead of committing.
    - If there are no implementation changes after validation, do not create an empty commit; report that no commit was created and why.
    - Do not leave successful milestone implementation changes uncommitted.
-8. Return an implementation report.
+9. Return an implementation report.
    - Use `references/implementation-report-template.md`.
    - Include the commit hash and subject, or explain why no commit was created.
    - Include assumptions and known gaps honestly.
@@ -96,7 +100,7 @@ If the packet is missing critical information, inspect the active initiative doc
 - Do not weaken acceptance criteria.
 - Do not silently expand into later milestones.
 - Do not treat the scope budget as permission to add work; it is a ceiling and review-risk signal.
-- Do not mark milestone status complete unless the packet explicitly asks for implementation-side bookkeeping.
+- Do not mark milestone status beyond `implemented` unless the packet explicitly asks for implementation-side bookkeeping.
 - Do not open a PR from this skill; hand off to review first.
 - Do not claim tests passed unless commands were run.
 - Do not skip the implementation commit when milestone changes are ready to review.

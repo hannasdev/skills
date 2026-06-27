@@ -44,10 +44,12 @@ Do not give it the implementation conversation or builder justifications unless 
    - Record merge-base SHA and head SHA when available.
    - Review the branch diff against the selected base, not only unstaged local changes.
 2. Load initiative artifacts.
+   - Read `initiative.json` first when present; treat it as the lifecycle source of truth.
    - Read active initiative `prd.md`.
    - Read `milestones.md`.
    - Read `architecture.md` when present.
    - Read repository guidance if it defines initiative or milestone conventions.
+   - Use Markdown for rationale, acceptance criteria, non-goals, and scope details; do not infer lifecycle state from Markdown checkboxes when JSON exists.
 3. Identify the target milestone.
    - If multiple milestones appear touched, review the named target milestone first and flag possible scope creep.
    - If no milestone is named and it cannot be inferred safely, stop and ask.
@@ -59,19 +61,27 @@ Do not give it the implementation conversation or builder justifications unless 
    - Flag scope creep, unrelated cleanup, or premature future-milestone work.
    - Compare the branch against the milestone scope budget when present. Call out exceeded tripwires, especially more acceptance criteria, more subsystem boundaries, larger non-generated diff, or broader validation needs than planned.
 6. Check required bookkeeping.
-   - Milestone status updates
+   - Structured lifecycle status in `initiative.json`
    - Initiative docs alignment
    - Release-log or user/maintainer docs if the milestone requires them
    - Architecture notes if the implementation changes durable contracts
+   - If `initiative.json` exists, use lifecycle tooling before manual doc inspection:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
    - If the target milestone appears to be the final milestone, verify lifecycle bookkeeping before returning `Pass`:
-     - milestone status and evidence reflect acceptance/completion
-     - PRD and product/source-of-truth status no longer say the final milestone is merely in implementation
-     - the initiative is moved to the local done/completed location when all milestones are complete, or an explicit human deferral is recorded
+     - milestone status and evidence reflect acceptance/completion or `complete_on_merge`
+     - PRD and product/source-of-truth status do not contradict `initiative.json`
+     - the initiative remains at its stable path unless local policy explicitly requires an archive move
      - release-log or completion notes contain the PR link/date when local convention supports it
    - When available, run the read-only lifecycle checker to make this deterministic:
      `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
-   - Treat a strict lifecycle-check failure on a final milestone as `Partial` or `Needs decision`, not `Pass`, unless the user explicitly defers completion bookkeeping.
-7. Produce a verdict.
+   - Treat a strict lifecycle-check failure on a final milestone as `Partial` or `Needs decision`, not `Pass`, unless the user explicitly records a deferral or `complete_on_merge` state.
+7. Record conformance lifecycle state.
+   - If the verdict is `Pass` and the initiative has `initiative.json`, run the lifecycle transition before handing off to PR readiness:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-conformance --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+   - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit only the resulting lifecycle/bookkeeping diff with `commit` before PR readiness.
+   - If unrelated local changes prevent a clean lifecycle commit, report the blocker instead of leaving the transition uncommitted.
+   - If the verdict is `Partial`, `Fail`, or `Needs decision`, do not record conformance.
+8. Produce a verdict.
    - **Pass:** milestone criteria are satisfied with adequate evidence.
    - **Partial:** useful progress, but criteria/evidence/bookkeeping remain incomplete.
    - **Fail:** branch does not satisfy the milestone or materially violates scope/constraints.

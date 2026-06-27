@@ -42,6 +42,9 @@ After applying fixes:
 
 1. Run relevant validation (lint/tests/docs generation as applicable).
 2. Commit with a focused message, defaulting to DCO sign-off (`git commit -s`) unless repo policy explicitly uses a different legal attestation model or the user requests otherwise.
+   - Treat this skill invocation as explicit authorization to create focused review-response commits.
+   - Use `commit` for commit inspection, staging, message quality, and DCO sign-off rules.
+   - Stage only changes that address the selected review feedback. Leave unrelated local changes unstaged.
 3. Push branch updates.
 4. Reply on each addressed thread with a concise resolution note (what changed + validation evidence), tailored to that thread by default.
 5. Resolve only threads that are fully addressed.

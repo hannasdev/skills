@@ -79,6 +79,27 @@ Do not:
 - Introduce real secrets, production tokens, customer data, private logs, or personal data into tests or fixtures.
 - Hide uncertainty.
 
+## Assertion Quality
+
+Tests should fail for the important broken behavior, not merely prove that code ran.
+
+Prefer:
+
+- Exact equality for values, IDs, dates, counts, paths, URLs, and error codes.
+- Parsed JSON/CSV/Markdown/CLI output assertions over substring checks.
+- Field-level checks for generated reports, schemas, manifests, and golden outputs.
+- At least one meaningful edge or failure-path assertion when behavior depends on validation or boundary handling.
+- Mocks that exercise the code path being claimed, not mocks that replace the behavior under test.
+
+Avoid:
+
+- Truthiness checks when exact values matter.
+- `assert(value, expected)` in Node tests when the second argument is only an assertion message.
+- Snapshot or golden updates without targeted assertions for the risky values.
+- Tests that assert labels, headings, or presence only when the contract is structured behavior.
+
+Use `test-quality-review` before PR prep when changed tests or fixtures are central evidence for a behavior claim.
+
 ## Bug Fixes
 
 For bug fixes, add or identify a regression test when practical.

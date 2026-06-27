@@ -24,23 +24,31 @@ Before writing the PR description:
    - Run `git fetch origin <base-branch>` when `origin` is the target remote.
    - Review the branch diff against `origin/<base-branch>`, not a potentially stale local branch.
 4. If creating a new work branch as part of PR prep, start it from the fetched base tip. Prefer the bundled branch helper below when available.
-5. Review relevant notes in `PRODUCT.md`.
+5. Inspect `git status --short`.
+   - Unless the user explicitly asked for description-only output, refuse PR publishing/prep when relevant uncommitted changes are present.
+   - Route back to the appropriate workflow skill to commit them, or ask for explicit commit authorization when they are not covered by a workflow skill.
+   - Ignore unrelated uncommitted changes only when they are clearly outside the branch diff and will not affect PR title/body, validation, generated artifacts, release log, or publish commands.
+6. Review relevant notes in `PRODUCT.md`.
 
 ### Phase 2: Analyze
 
-6. Identify the user-facing or maintainer-facing purpose of the change.
-7. Identify test coverage and validation performed.
-8. Identify risks, tradeoffs, and follow-up work.
-9. Ensure the PR addresses a single, clearly defined feature, bug fix, or logical change.
+7. Identify the user-facing or maintainer-facing purpose of the change.
+8. Identify test coverage and validation performed.
+9. Identify risks, tradeoffs, and follow-up work.
+10. Ensure the PR addresses a single, clearly defined feature, bug fix, or logical change.
 
 ### Phase 3: Finalize
 
-10. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `skills/release-log/SKILL.md`.
-11. Unless the user explicitly asked for description-only output, open or update the PR:
+11. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `skills/release-log/SKILL.md`.
+12. Unless the user explicitly asked for description-only output, open or update the PR:
    - If a PR already exists for the current branch, update its title/body.
    - If no PR exists, push the current branch and open a draft PR by default.
    - Prefer the `github:yeet` publish flow when full publish work is needed because it already covers GitHub auth checks, branch push, and draft PR creation. Reuse the PR title/body produced by this skill rather than relying on autofill.
    - Use `gh pr create` / `gh pr edit` as a fallback when the GitHub app path is unavailable or cannot infer the repository/head branch cleanly.
+   - If the branch belongs to an initiative with `initiative.json`, record the opened PR after the PR number is known:
+     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-pr-opened --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number>`
+   - For a final-milestone PR that should complete the initiative once merged, use `--complete-on-merge` on the same command.
+   - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit and push the resulting lifecycle diff before declaring PR prep complete.
    - If `release-log.md` used a placeholder such as `PR: TBD`, replace it with the opened PR number or URL after the PR exists, commit that small follow-up if needed, push it, and update the PR body if the description mentions the release entry.
 
 ## Default publish behavior
@@ -49,7 +57,7 @@ Use this default decision table:
 
 - User says "PR description only", "draft a PR body", "do not push", "do not open", or equivalent: return the title/body only.
 - User asks to open, publish, prepare PR, create PR, update PR, or invokes this skill after a clean committed branch intended for review: push and open/update the PR.
-- User invokes this skill with uncommitted changes: prepare the description and ask before committing/pushing unless another active instruction explicitly requested commit/push.
+- User invokes this skill with relevant uncommitted changes and did not ask for description-only output: stop before publishing and route to the workflow skill that should commit those changes.
 - User invokes this skill on an existing PR branch: update the existing PR title/body instead of creating a duplicate.
 
 Opening defaults:

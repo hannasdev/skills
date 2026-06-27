@@ -2,6 +2,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
 const args = parseArgs(process.argv.slice(2));
 const repo = path.resolve(args.repo || process.cwd());
@@ -29,6 +31,25 @@ function main() {
       addFinding("blocking", "Could not identify an initiative path. Pass --initiative or ensure PRODUCT.md names one active initiative.");
       finish();
       return;
+    }
+
+    const lifecyclePath = path.join(initiativePath, "initiative.json");
+    if (fs.existsSync(lifecyclePath)) {
+      const lifecycleScript = path.join(path.dirname(fileURLToPath(import.meta.url)), "initiative-lifecycle.mjs");
+      const lifecycleArgs = [
+        lifecycleScript,
+        "check",
+        "--repo",
+        repo,
+        "--initiative",
+        initiativePath,
+      ];
+      if (args.milestone) lifecycleArgs.push("--milestone", args.milestone);
+      if (args.pr) lifecycleArgs.push("--pr", args.pr);
+      if (strict) lifecycleArgs.push("--strict");
+      if (jsonOnly) lifecycleArgs.push("--json");
+      const lifecycleResult = spawnSync(process.execPath, lifecycleArgs, { stdio: "inherit" });
+      process.exit(lifecycleResult.status ?? 1);
     }
 
     const prdPath = path.join(initiativePath, "prd.md");
@@ -208,7 +229,9 @@ function extractStatus(text) {
     return "";
   }
   const statusMatch = text.match(/(?:^|\n)\s*(?:[-*]\s*)?(?:\*\*)?Status(?:\*\*)?\s*:\s*([^\n]+)/i);
-  return statusMatch ? stripMarkdown(statusMatch[1]) : "";
+  if (statusMatch) return stripMarkdown(statusMatch[1]);
+  const stateMatch = text.match(/(?:^|\n)\s*(?:[-*]\s*)?(?:\*\*)?State(?:\*\*)?\s*:\s*([^\n]+)/i);
+  return stateMatch ? stripMarkdown(stateMatch[1]) : "";
 }
 
 function stripMarkdown(text) {
