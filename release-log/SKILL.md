@@ -1,6 +1,6 @@
 ---
 name: release-log
-description: Use when preparing a PR that changes user or maintainer behavior and you want a human-readable release entry focused on value, impact, and action.
+description: Use when preparing or updating a PR that changes user workflows, maintainer workflows, configuration defaults, output shape or behavior, setup, migrations, or operational expectations and needs a human-readable release-log entry focused on value, impact, audience, action needed, and PR linkage. Skip for strictly internal refactors with no external impact.
 ---
 
 # Release Log Skill
@@ -9,16 +9,9 @@ description: Use when preparing a PR that changes user or maintainer behavior an
 
 Capture user-facing value from each relevant PR in a concise, non-technical release log so merged work remains understandable after review context is gone.
 
-## When to use
+## Scope
 
-Use this skill during PR creation or PR updates when the change affects:
-- user workflows
-- maintainer workflows
-- configuration defaults
-- output shape or behavior
-- setup, migration, or operational expectations
-
-Skip for strictly internal refactors with no external impact.
+Use this skill to add or update one human-readable entry in `release-log.md`. Do not use it as a technical changelog, PR description replacement, or milestone status source of truth.
 
 ## Required process
 

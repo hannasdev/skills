@@ -16,7 +16,7 @@ FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 TODO_RE = re.compile(r"\bTODO\b|\[TODO:", re.IGNORECASE)
 WHEN_TO_USE_RE = re.compile(r"^#{2,4}\s+.*when\s+to\s+use", re.IGNORECASE | re.MULTILINE)
 DESCRIPTION_TRIGGER_RE = re.compile(
-    r"\buse\s+(when|for|to|after|before|during|if|with|on|once|immediately)\b",
+    r"\buse(?:\s+this\s+skill)?\s+(when|for|to|after|before|during|if|with|on|once|immediately)\b",
     re.IGNORECASE,
 )
 AUX_DOC_NAMES = {

@@ -1,6 +1,6 @@
 ---
 name: post-merge-cleanup
-description: Use after a PR merge to standardize local cleanup and post-merge verification.
+description: Use after a PR has merged into main to standardize local cleanup and post-merge verification. Sync local main, delete the merged local branch, optionally delete the remote branch only when explicitly confirmed, verify unresolved review threads, and check or explicitly record initiative lifecycle state.
 ---
 
 # Post-Merge Cleanup Skill
