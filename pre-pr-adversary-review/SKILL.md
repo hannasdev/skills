@@ -62,7 +62,7 @@ agent, perform the review locally and do not spawn another review agent.
    - Do not expand scope unless the issue threatens correctness, safety, or the advertised contract.
 7. Record adversarial-review lifecycle state.
    - If no `Blocking` or `Should Fix Before PR` findings remain and the initiative has `initiative.json`, run the lifecycle transition before PR prep:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-adversarial-review --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs record-adversarial-review --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
    - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit only the resulting lifecycle/bookkeeping diff with `commit` before PR prep.
    - If unrelated local changes prevent a clean lifecycle commit, report the blocker instead of leaving the transition uncommitted.
    - Do not record adversarial review when `test-quality-review` returns `Should Fix` or `Needs Better Evidence`.
@@ -132,7 +132,7 @@ For initiative-based work, especially after `milestone-conformance-review` retur
 - If the branch completes a non-final milestone, the initiative should remain active and identify the next milestone; it should not churn between active/backlog/done locations.
 - If the docs still say the completed milestone is `in implementation`, `pending`, `TBD`, or active without an explicit deferral, classify it as **Should fix before PR**.
 - When available, run the lifecycle checker and include its result:
-  `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
+  `node $SKILLS_DIR/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
 
 ## Output Format
 

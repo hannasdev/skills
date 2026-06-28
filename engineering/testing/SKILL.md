@@ -159,9 +159,9 @@ The final response includes exact commands and outcomes.
 
 Use these files for deeper guidance when relevant:
 
-- `/Users/hanna/.codex/skills/references/testing-examples.md` - common workflows for bug fixes, refactors, CI failures, and snapshot updates.
-- `/Users/hanna/.codex/skills/references/mocking-and-fixtures.md` - guidance for mocks, fixtures, deterministic tests, and test data.
-- `/Users/hanna/.codex/skills/references/snapshots-and-generated-output.md` - guidance for snapshots, generated files, schemas, and contract validation.
+- `$SKILLS_DIR/references/testing-examples.md` - common workflows for bug fixes, refactors, CI failures, and snapshot updates.
+- `$SKILLS_DIR/references/mocking-and-fixtures.md` - guidance for mocks, fixtures, deterministic tests, and test data.
+- `$SKILLS_DIR/references/snapshots-and-generated-output.md` - guidance for snapshots, generated files, schemas, and contract validation.
 
 ## Next Skill
 

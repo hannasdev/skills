@@ -18,7 +18,7 @@ This skill is for actions after a PR is merged into `main`.
 3. Branch cleanup: Delete the merged feature branch locally; if `git branch -d` fails due to unmerged changes, stop and report that the branch contains commits not in `main`.
 4. Branch cleanup: Delete the remote feature branch only when the user explicitly passes `--delete-remote` or confirms deletion when prompted.
 5. Lifecycle verification: If the PR belongs to an initiative with `initiative.json`, verify the merged PR's lifecycle state with read-only tooling before reporting:
-   `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
+   `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
 6. Optional lifecycle recording: Record merge state only when the user explicitly requests it or passes `--record-lifecycle`, because this writes `initiative.json` on local `main` and may require a scoped follow-up commit.
 7. Verification and report: Verify no unresolved review threads remain on the merged PR, then report final state (branch, sync, thread count, lifecycle result when applicable).
 
@@ -35,24 +35,24 @@ This skill is for actions after a PR is merged into `main`.
 
 Script path:
 
-`/Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs`
+`$SKILLS_DIR/post-merge-cleanup/scripts/post-merge-cleanup.mjs`
 
 Usage:
 
 ```bash
-node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example
+node $SKILLS_DIR/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example
 ```
 
 Optional repository selection (for non-default checkout context):
 
 ```bash
-node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --repo owner/repo
+node $SKILLS_DIR/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --repo owner/repo
 ```
 
 Optional remote branch deletion:
 
 ```bash
-node /Users/hanna/.codex/skills/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --delete-remote
+node $SKILLS_DIR/post-merge-cleanup/scripts/post-merge-cleanup.mjs --pr 185 --branch fix/example --delete-remote
 ```
 
 What it does:

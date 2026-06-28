@@ -35,12 +35,12 @@ explicitly requests a standalone bookkeeping fix.
    - Inspect existing initiative conventions only to learn whether archive moves are optional or explicitly required.
 3. Verify milestone bookkeeping.
    - When `initiative.json` exists, run lifecycle tooling first and use its output as evidence:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
    - When only Markdown lifecycle state exists, run the compatibility checker:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
+     `node $SKILLS_DIR/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number> --strict`
    - If `initiative.json` exists and the PR is merged, prefer verifying that the merged PR already left coherent `complete_on_merge` or completion state.
    - Record the merge only when the user explicitly requests post-merge lifecycle recording:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-merged --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs record-merged --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number>`
    - Treat explicit post-merge lifecycle recording as scoped commit authorization through lifecycle-transition tooling. Commit only the resulting lifecycle/bookkeeping diff, or report the dirty local diff if the user asked for verification only.
    - Confirm the merged PR already marked the milestone according to local convention.
    - Confirm the merged PR already recorded PR link, merge date, validation evidence, or completion notes if local convention supports those fields.

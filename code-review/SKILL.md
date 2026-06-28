@@ -43,7 +43,7 @@ perform the review locally and do not spawn another agent.
 Before giving review feedback:
 
 1. Identify the intended purpose from the PR description, user request, branch name, commit messages, or diff. Ask for clarification only when correctness or scope cannot be judged from available context.
-2. Run the PR prep helper from `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` if available. If unavailable, proceed with the review manually and note its absence in the review summary.
+2. Run the PR prep helper from `$SKILLS_DIR/pr-description/scripts/pr-prep.mjs` if available. If unavailable, proceed with the review manually and note its absence in the review summary.
 3. Review the diff against the intended base branch, preferably the latest fetched remote-tracking ref.
    - If the diff exceeds context limits, prioritize reviewing changed files most likely to contain correctness or safety issues, and note which files were not reviewed.
 4. Review related repository source-of-truth docs, such as `PRODUCT.md`, `PRD.md`, or repository-local guidance named by `AGENTS.md`.

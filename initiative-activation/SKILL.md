@@ -36,7 +36,7 @@ If any precondition is not met, stop and report the blocker or ask for the missi
    - Prefer `git mv` when the repository is under git and the folder is tracked.
    - Use the repository's active initiative convention, usually `docs/initiatives/active/<initiative>/`.
    - Prefer structured lifecycle tooling over manual Markdown status edits:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs activate --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs activate --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
    - Ensure `initiative.json` records `state: "active"` and the selected `currentMilestone`.
    - Update Markdown status summaries only when local docs require human-readable mirrors, and keep them consistent with JSON.
 4. Create the implementation branch.

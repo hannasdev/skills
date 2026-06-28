@@ -87,9 +87,11 @@ function checkBundledReferences(skillDir) {
         continue;
       }
 
-      const candidate = raw.startsWith("/")
-        ? raw
-        : path.resolve(skillDir, raw.replace(/^skills\//, ""));
+      const candidate = raw.startsWith("$SKILLS_DIR/")
+        ? path.join(root, raw.slice("$SKILLS_DIR/".length))
+        : raw.startsWith("/")
+          ? raw
+          : path.resolve(skillDir, raw.replace(/^skills\//, ""));
 
       if (!fs.existsSync(candidate)) {
         addIssue(`${toRepoPath(skillPath)}: referenced bundled path does not exist: ${raw}`);

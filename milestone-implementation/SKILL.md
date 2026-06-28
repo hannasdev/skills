@@ -78,7 +78,7 @@ If the packet is missing critical information, inspect the active initiative doc
    - Check docs/release-log/bookkeeping expectations from the packet.
 7. Record implementation lifecycle state.
    - If the initiative has `initiative.json`, run the lifecycle transition before committing so the bookkeeping is included in the implementation commit:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs mark-implemented --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs mark-implemented --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
    - Do not mark conformance, adversarial review, PR, merge, or completion state from this skill.
 8. Commit implementation changes.
    - Treat this skill invocation as explicit authorization to create a focused implementation commit for the selected milestone.

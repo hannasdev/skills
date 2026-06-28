@@ -24,7 +24,7 @@ Skip for strictly internal refactors with no external impact.
 
 Before writing the release log entry:
 
-1. If you have the ability to execute scripts and the file `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs` exists, run it. Otherwise, skip to step 2.
+1. If you have the ability to execute scripts and the file `$SKILLS_DIR/pr-description/scripts/pr-prep.mjs` exists, run it. Otherwise, skip to step 2.
 2. Review the PR diff against the intended base branch.
 3. Review the best available PR context:
    - finished PR description, when one exists

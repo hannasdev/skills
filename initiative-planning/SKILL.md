@@ -52,7 +52,7 @@ Create `architecture.md` only when the initiative changes architecture, ownershi
    - Treat JSON as the source of truth for process state and Markdown as human-readable rationale and acceptance criteria.
    - Start new planning work with `state: "backlog"`, `currentMilestone: null` or the first planned milestone when local convention expects one, and each milestone set to `state: "not_started"`.
    - After creating or updating the file, validate it with lifecycle tooling when available:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs status --repo <repo> --initiative <initiative-path>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs status --repo <repo> --initiative <initiative-path>`
    - Do not encode deferred milestones as normal unchecked lifecycle boxes in Markdown; use structured `state: "deferred"` when a deferral decision exists.
 7. Add architecture notes when needed.
    - Capture decisions, constraints, ownership boundaries, data/API contracts, migration strategy, failure modes, and alternatives considered.

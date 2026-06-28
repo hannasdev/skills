@@ -190,4 +190,4 @@ End by recommending the next skill:
 
 - After an implementation commit, recommend `milestone-conformance-review` for initiative-based work.
 - After a conformance/adversarial fix commit, recommend rerunning the review skill that requested the fix.
-- Before opening or updating a PR, recommend `pre-pr-adversary-review`, then `pr-description`.
+- Before opening or updating a PR, recommend `pr-readiness-gate`; it will route to `pre-pr-adversary-review`, `release-log`, `testing`, or `pr-description` as needed.

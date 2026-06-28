@@ -66,18 +66,18 @@ Do not give it the implementation conversation or builder justifications unless 
    - Release-log or user/maintainer docs if the milestone requires them
    - Architecture notes if the implementation changes durable contracts
    - If `initiative.json` exists, use lifecycle tooling before manual doc inspection:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
    - If the target milestone appears to be the final milestone, verify lifecycle bookkeeping before returning `Pass`:
      - milestone status and evidence reflect acceptance/completion or `complete_on_merge`
      - PRD and product/source-of-truth status do not contradict `initiative.json`
      - the initiative remains at its stable path unless local policy explicitly requires an archive move
      - release-log or completion notes contain the PR link/date when local convention supports it
    - When available, run the read-only lifecycle checker to make this deterministic:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
+     `node $SKILLS_DIR/initiative-completion/scripts/check-initiative-lifecycle.mjs --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --strict`
    - Treat a strict lifecycle-check failure on a final milestone as `Partial` or `Needs decision`, not `Pass`, unless the user explicitly records a deferral or `complete_on_merge` state.
 7. Record conformance lifecycle state.
    - If the verdict is `Pass` and the initiative has `initiative.json`, run the lifecycle transition before handing off to PR readiness:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-conformance --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs record-conformance --repo <repo> --initiative <initiative-path> --milestone <milestone-id>`
    - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit only the resulting lifecycle/bookkeeping diff with `commit` before PR readiness.
    - If unrelated local changes prevent a clean lifecycle commit, report the blocker instead of leaving the transition uncommitted.
    - If the verdict is `Partial`, `Fail`, or `Needs decision`, do not record conformance.

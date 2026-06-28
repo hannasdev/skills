@@ -86,7 +86,7 @@ Use this rubric for each comment:
 
 Use the bundled helper to run the thread workflow consistently:
 
-- Script: `/Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs`
+- Script: `$SKILLS_DIR/review-comments/scripts/review-comments.mjs`
 - Behavior: strict (non-zero exit on invalid thread IDs, already-resolved IDs, and failing/pending PR checks)
 - If the helper script is not available or fails unexpectedly, fall back to the raw GitHub CLI commands in the Recommended command sequence section and report the script error to the user.
 - Commands:
@@ -97,12 +97,12 @@ Use the bundled helper to run the thread workflow consistently:
 Examples:
 
 ```bash
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs list --pr 171
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comment "Addressed in 1234abc. Added regression test."
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comment "Shared root cause fixed in 1234abc." --shared-comment
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comments-file /tmp/thread-comments.json
-node /Users/hanna/.codex/skills/review-comments/scripts/review-comments.mjs status --pr 171
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs list --pr 171
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comment "Addressed in 1234abc. Added regression test."
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comment "Shared root cause fixed in 1234abc." --shared-comment
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs resolve --pr 171 --ids PRRT_xxx,PRRT_yyy --comments-file /tmp/thread-comments.json
+node $SKILLS_DIR/review-comments/scripts/review-comments.mjs status --pr 171
 ```
 
 Minimal `--comments-file` example:

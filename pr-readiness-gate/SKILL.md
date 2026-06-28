@@ -78,7 +78,7 @@ perform the gate locally and do not spawn another agent.
 6. Check durable artifact hygiene.
    - Product or initiative docs should not use branch-specific or review-state wording that will go stale after merge.
    - If initiative work has `initiative.json`, run lifecycle tooling before relying on Markdown summaries:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --strict`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs check --repo <repo> --initiative <initiative-path> --strict`
    - Generated docs and tool descriptions should match the implementation when applicable.
    - Open blockers from prior reviews or gates must be fixed or explicitly carried forward as risks.
 7. Produce a readiness verdict.

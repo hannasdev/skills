@@ -17,7 +17,7 @@ Before writing the PR description:
 
 ### Phase 1: Setup
 
-1. Run the `pre-pr-adversary-review` skill first (see `skills/pre-pr-adversary-review/SKILL.md`) and address or explicitly carry forward its blocking/should-fix findings.
+1. Confirm `pr-readiness-gate` has already routed this branch to `pr-description`, or run it before continuing. A current clean readiness result may include `pre-pr-adversary-review`, `milestone-conformance-review`, `release-log`, or `testing`; do not rerun those gates only because this skill was invoked.
 2. Run the PR prep helper below when available.
 3. Fetch the latest remote base branch before reviewing the diff:
    - Determine the base branch from the user request, existing PR metadata, or the remote default branch.
@@ -39,14 +39,14 @@ Before writing the PR description:
 
 ### Phase 3: Finalize
 
-11. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `skills/release-log/SKILL.md`.
+11. If user-facing or maintainer-facing behavior changed, update `release-log.md` using `release-log`.
 12. Unless the user explicitly asked for description-only output, open or update the PR:
    - If a PR already exists for the current branch, update its title/body.
    - If no PR exists, push the current branch and open a draft PR by default.
    - Prefer the `github:yeet` publish flow when full publish work is needed because it already covers GitHub auth checks, branch push, and draft PR creation. Reuse the PR title/body produced by this skill rather than relying on autofill.
    - Use `gh pr create` / `gh pr edit` as a fallback when the GitHub app path is unavailable or cannot infer the repository/head branch cleanly.
    - If the branch belongs to an initiative with `initiative.json`, record the opened PR after the PR number is known:
-     `node /Users/hanna/.codex/skills/initiative-completion/scripts/initiative-lifecycle.mjs record-pr-opened --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number>`
+     `node $SKILLS_DIR/initiative-completion/scripts/initiative-lifecycle.mjs record-pr-opened --repo <repo> --initiative <initiative-path> --milestone <milestone-id> --pr <number>`
    - For a final-milestone PR that should complete the initiative once merged, use `--complete-on-merge` on the same command.
    - Treat the lifecycle transition as scoped commit authorization through lifecycle-transition tooling. Commit and push the resulting lifecycle diff before declaring PR prep complete.
    - If `release-log.md` used a placeholder such as `PR: TBD`, replace it with the opened PR number or URL after the PR exists, commit that small follow-up if needed, push it, and update the PR body if the description mentions the release entry.
@@ -71,15 +71,15 @@ Opening defaults:
 
 Use the bundled helper for read-only PR preparation context:
 
-- Script: `/Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs`
+- Script: `$SKILLS_DIR/pr-description/scripts/pr-prep.mjs`
 - Behavior: reports branch diff context, changed file groups, current PR metadata when available, likely validation commands, and release-log/product-alignment prompts.
 
 Examples:
 
 ```bash
-node /Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs
-node /Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs --base origin/main
-node /Users/hanna/.codex/skills/pr-description/scripts/pr-prep.mjs --json
+node $SKILLS_DIR/pr-description/scripts/pr-prep.mjs
+node $SKILLS_DIR/pr-description/scripts/pr-prep.mjs --base origin/main
+node $SKILLS_DIR/pr-description/scripts/pr-prep.mjs --json
 ```
 
 When using `--base origin/main` or another remote-tracking ref, fetch it first so the prep report reflects the current base commit.
@@ -89,7 +89,7 @@ If the helper script is unavailable or fails, proceed manually by inspecting `gi
 
 Use the bundled branch helper when starting a new PR branch:
 
-- Script: `/Users/hanna/.codex/skills/pr-description/scripts/branch-from-latest.mjs`
+- Script: `$SKILLS_DIR/pr-description/scripts/branch-from-latest.mjs`
 - Behavior: requires a clean working tree, detects or accepts the base branch, fetches the remote base, refuses existing local or remote branch names, and creates the new branch from the fetched remote base tip.
 - Non-goals: it does not stash, rebase existing work, force-push, create commits, or open PRs.
 
@@ -98,8 +98,8 @@ Before choosing a branch name, check the repository's local contribution guidanc
 Examples:
 
 ```bash
-node /Users/hanna/.codex/skills/pr-description/scripts/branch-from-latest.mjs docs/update-guide
-node /Users/hanna/.codex/skills/pr-description/scripts/branch-from-latest.mjs feat/new-workflow --base main
+node $SKILLS_DIR/pr-description/scripts/branch-from-latest.mjs docs/update-guide
+node $SKILLS_DIR/pr-description/scripts/branch-from-latest.mjs feat/new-workflow --base main
 ```
 
 If the branch helper is unavailable or fails, fetch the base branch manually and create the new branch from the fetched base tip with standard git commands.
@@ -199,5 +199,6 @@ If the user explicitly requested description-only output, say that no PR was ope
 End by recommending the next skill:
 
 - If user/maintainer-facing behavior changed and no release entry exists, recommend `release-log` before final PR update.
+- If readiness has not been checked yet, recommend `pr-readiness-gate` before opening, updating, or marking the PR ready.
 - After the PR is open, recommend waiting for review feedback, then using `copilot-feedback-gate` when feedback is functionality-heavy or systemic, otherwise `review-comments`.
 - After the user merges the PR, recommend `post-merge-cleanup`, then `initiative-completion` for initiative bookkeeping.
