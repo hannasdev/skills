@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Analyzer"
+  short_description: "Review skills for scope, size, and clarity"
+  default_prompt: "Use $skill-analyzer to review this skill for scope, size, trigger quality, and instruction clarity."
